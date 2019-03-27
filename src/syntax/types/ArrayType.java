@@ -1,0 +1,70 @@
+package syntax.types;
+
+import semantics.util.Visitor;
+import syntax.Type;
+
+public class ArrayType extends AbstractType {
+
+	public final static String NAME = "ArrayType";
+	
+	
+	private Type typeOf;
+	private int size;
+	
+	
+	public static ArrayType buildArray(int size, Type typeOf) {
+		
+		if (typeOf instanceof ArrayType) {			
+			ArrayType other = (ArrayType) typeOf;
+			other.setTypeOf(buildArray(size, other.getTypeOf()));
+			return other;			
+		}
+		else return new ArrayType(size, typeOf);
+	}
+	
+	
+	private ArrayType(int size, Type typeOf) {
+		super(typeOf.getLine(), typeOf.getColumn());
+		this.typeOf = typeOf;
+		this.size = size;
+	}
+	
+	
+	
+	public Type getTypeOf() {
+		return typeOf;
+	}
+	
+	private void setTypeOf(Type typeOf) {
+		this.typeOf = typeOf;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	
+	
+	
+	
+	@Override
+	public String getName() {
+		return NAME;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("ArrayType [%s : %s] : size=[ %s ] type=[ %s ]", 
+				getLine(),
+				getColumn(),
+				size, 
+				typeOf);
+	}
+	
+	@Override
+	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
+		return visitor.visit(this, params);
+	}
+
+	
+}
