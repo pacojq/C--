@@ -1,5 +1,7 @@
 package syntax.types;
 
+import java.util.List;
+
 import errors.ErrorHandler;
 import errors.ErrorType;
 import syntax.AbstractASTNode;
@@ -65,7 +67,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 
 	@Override
 	public Type squareBrackets(Type other) {
-		return defaultOperation(other, "patatas"); // TODO message
+		return defaultOperation(other, "indexing");
 	}
 	
 	@Override
@@ -83,6 +85,16 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	@Override
 	public Type not() {
 		return defaultOperation("a not operation");
+	}
+	
+	@Override
+	public Type attributeAccess(String attribute) {
+		return defaultOperation("an attribute access");
+	}
+	
+	@Override
+	public Type parenthesesOperator(int line, int column, List<Type> arguments) {
+		return defaultOperation("parentheses operator");
 	}
 
 }

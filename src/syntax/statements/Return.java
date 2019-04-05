@@ -5,7 +5,7 @@ import syntax.AbstractASTNode;
 import syntax.Expression;
 import syntax.Statement;
 
-public class Return extends AbstractASTNode implements Statement {
+public class Return extends AbstractStatement {
 
 	private Expression value;
 	

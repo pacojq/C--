@@ -188,11 +188,6 @@ expression returns [Expression ast]:
 		| e1=expression op=('&&'|'||') e2=expression					// And-Or
 				{ $ast = new LogicalOperation($op.text, $e1.ast, $e2.ast); }
 		;
-	 	  
-	 	  
-	 	  
-	 	  
-	 	  
 
 
 
@@ -252,5 +247,5 @@ ML_COMMENT: '/*' .*? '*/' -> skip
 	   
 BLANKS: (' ' | '\t' | '\r' | '\n')+ -> skip
 	   ;
-	   
+
 

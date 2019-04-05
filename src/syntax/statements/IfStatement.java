@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import semantics.util.Visitor;
-import syntax.AbstractASTNode;
 import syntax.Expression;
 import syntax.Statement;
 
-public class IfStatement extends AbstractASTNode implements Statement {
+
+public class IfStatement extends AbstractStatement {
 
 	private Expression condition;
 	private List<Statement> ifPart;
@@ -31,6 +31,8 @@ public class IfStatement extends AbstractASTNode implements Statement {
 	}
 	
 	public List<Statement> getElsePart() {
+		if (elsePart == null)
+			return new ArrayList<Statement>();
 		return new ArrayList<Statement>(elsePart);
 	}
 	

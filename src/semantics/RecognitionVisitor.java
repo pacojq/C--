@@ -4,11 +4,12 @@ import errors.ErrorHandler;
 import semantics.symboltable.SymbolTable;
 import semantics.util.AbstractVisitor;
 import syntax.Definition;
-import syntax.Statement;
+import syntax.Type;
 import syntax.expressions.FunctionInvocation;
 import syntax.expressions.Variable;
 import syntax.statements.FunctionDefinition;
 import syntax.statements.VariableDefinition;
+import syntax.types.StructType;
 
 
 public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
@@ -23,6 +24,8 @@ public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
 	
 	@Override
 	public Void visit(VariableDefinition varDefinition, Void params) {
+		
+		super.visit(varDefinition, params);
 		
 		boolean success = table.insert(varDefinition);
 		if (!success) {
@@ -49,9 +52,7 @@ public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
 		table.set();
 		
 		// Normal visitor stuff
-		funcDefinition.getType().accept(this, params);
-		for (Statement st : funcDefinition.getStatements())
-			st.accept(this, params);
+		super.visit(funcDefinition, params);
 		
 		// Reset the scope
 		table.reset();
@@ -61,6 +62,30 @@ public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
 	
 	
 	
+	
+	@Override
+	public Void visit(StructType structType, Void params) {
+		
+		table.set();
+		
+		// Kinda like super.visit(). We just change the error message.
+		for (VariableDefinition def : structType.getVariables()) {
+			super.visit(def, params);
+			boolean success = table.insert(def);
+			if (!success) {
+				ErrorHandler.getInstance().raiseError(
+						def.getLine(), 
+						def.getColumn(),
+						"Trying to declare an already existing struct field.");
+			}
+		}
+		
+		table.reset();
+		
+		return null;
+	}
+	
+		
 	
 	
 	
@@ -90,10 +115,11 @@ public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
 		Definition def = table.find(var.getName());
 		
 		if (def == null) {
-			ErrorHandler.getInstance().raiseError(
+			Type err = ErrorHandler.getInstance().raiseError(
 					var.getLine(), 
 					var.getColumn(),
 					"Cannot invoke a function which is not declared.");
+			def = new VariableDefinition(var.getLine(), var.getColumn(), var.getName(), err);
 		}		
 		var.setDefinition(def);		
 		

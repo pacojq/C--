@@ -1,12 +1,10 @@
 package syntax.statements;
 
 import semantics.util.Visitor;
-import syntax.AbstractASTNode;
 import syntax.Definition;
-import syntax.Statement;
 import syntax.Type;
 
-public class VariableDefinition extends AbstractASTNode implements Definition, Statement {
+public class VariableDefinition extends AbstractStatement implements Definition {
 
 	private int scope;
 	

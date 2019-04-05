@@ -46,6 +46,18 @@ public class IntType extends AbstractType {
 	}
 	
 	
+	@Override
+	public Type cast(Type other) {
+		
+		switch (other.getName()) {		
+			case CharType.NAME: return other;
+			case IntType.NAME: return this;
+			case DoubleType.NAME: return other;		
+		}
+		return super.cast(other);
+	}
+	
+	
 	
 	
 	

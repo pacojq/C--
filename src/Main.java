@@ -5,6 +5,7 @@ import syntax.*;
 import org.antlr.v4.runtime.*;
 
 import errors.ErrorHandler;
+import errors.MyAntlrErrorListener;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorTree;
 
@@ -16,17 +17,34 @@ public class Main {
 			System.err.println("Please, pass me the input file.");
 			return;
 		}
-		
+		//String filename = args[0];
+		String filename = "input5-wrong.txt";		
 		ErrorHandler.getInstance().clear();
 
 		// create a lexer that feeds off of input CharStream
-		CharStream input = CharStreams.fromFileName(args[0]);
+		CharStream input = CharStreams.fromFileName(filename);
 		CmmLexer lexer = new CmmLexer(input);
 
 		// create a parser that feeds off the tokens buffer
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CmmParser parser = new CmmParser(tokens);
+		
+		
+		ANTLRErrorListener error = new MyAntlrErrorListener();
+		parser.removeErrorListeners();
+	    lexer.removeErrorListeners();
+	    parser.addErrorListener(error);
+	    lexer.addErrorListener(error);
+		
+	    
 		Program ast = parser.program().ast;
+		
+		
+		if (ErrorHandler.getInstance().anyError()) {
+			ErrorHandler.getInstance().showErrors(System.err);
+			return;
+		}
+		
 		
 		new SemanticAnalysis(ast).run();
 		

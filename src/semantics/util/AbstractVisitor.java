@@ -7,7 +7,7 @@ import syntax.expressions.binary.*;
 import syntax.statements.*;
 import syntax.types.*;
 
-public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
+public abstract class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
 	
 	@Override
@@ -195,7 +195,7 @@ public class AbstractVisitor<TP, TR> implements Visitor<TP, TR> {
 
 	@Override
 	public TR visit(Cast cast, TP params) {
-		cast.getType().accept(this, params);
+		cast.getTargetType().accept(this, params);
 		cast.getOperand().accept(this, params);
 		return null;
 	}

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import semantics.util.Visitor;
+import syntax.Definition;
 import syntax.Expression;
 import syntax.Statement;
 
 public class FunctionInvocation extends AbstractExpression implements Statement {
 
+	private Definition container;
+	
 	private Variable function;
 	private List<Expression> args;
 	
@@ -32,6 +35,18 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
+	}
+
+
+	@Override
+	public Definition getContainer() {
+		return container;
+	}
+
+
+	@Override
+	public void setContainer(Definition definition) {
+		this.container = definition;
 	}
 	
 }

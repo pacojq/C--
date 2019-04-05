@@ -1,7 +1,8 @@
 package errors;
 
 import java.io.PrintStream;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ErrorHandler {
@@ -18,7 +19,7 @@ public class ErrorHandler {
 	}
 	
 	private ErrorHandler() {
-		errors = new LinkedList<ErrorType>();
+		errors = new ArrayList<ErrorType>();
 	}
 	
 	
@@ -38,7 +39,22 @@ public class ErrorHandler {
 	}
 	
 	public void showErrors(PrintStream stream) {
+		String header = String.format("[ %s Error(s) found ]\n", errors.size()); 
+		stream.println(header);
+		
+		errors.sort(new ErrorComparator());
 		for (ErrorType e : errors)
 			stream.println(e.toString());
+	}
+	
+	
+	
+	
+	
+	private class ErrorComparator implements Comparator<ErrorType> {
+		@Override
+		public int compare(ErrorType arg0, ErrorType arg1) {
+			return arg0.getLine() - arg1.getLine();
+		}
 	}
 }

@@ -3,6 +3,7 @@ package syntax.types;
 import java.util.ArrayList;
 import java.util.List;
 
+import errors.ErrorHandler;
 import semantics.util.Visitor;
 import syntax.Type;
 import syntax.statements.VariableDefinition;
@@ -33,6 +34,33 @@ public class FunctionType extends AbstractType {
 	}
 	
 
+	
+	@Override
+	public Type parenthesesOperator(int line, int column, List<Type> arguments) {
+		
+		if (arguments.size() != params.size()) {
+			return ErrorHandler.getInstance().raiseError(
+					line, column, 
+					String.format("Invalid number of arguments in function call. Actual: %s; Expected: %s", 
+							arguments.size(),
+							params.size()));
+		}		
+		for (int i = 0; i < arguments.size(); i ++) {
+			
+			Type arg = arguments.get(i);
+			Type param = params.get(i).getType();
+			if (!arg.isEquivalent(param))
+			{
+				return ErrorHandler.getInstance().raiseError(
+						line, column, 
+						String.format("Invalid argument type in function call. Actual: %s; Expected: %s", 
+								arg, param));
+			}
+		}
+		return this.getReturnType();
+	}
+	
+	
 	
 	@Override
 	public String getName() {

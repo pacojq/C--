@@ -1,5 +1,7 @@
 package syntax;
 
+import java.util.List;
+
 public interface Type extends ASTNode {
 	
 	String getName();
@@ -20,6 +22,8 @@ public interface Type extends ASTNode {
 	Type unaryMinus();
 	Type not();
 
+	Type attributeAccess(String attribute);
+	Type parenthesesOperator(int line, int column, List<Type> arguments);
 
 	
 

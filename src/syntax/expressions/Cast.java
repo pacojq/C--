@@ -7,20 +7,20 @@ import syntax.Type;
 public class Cast extends AbstractExpression {
 
 	private Expression operand;
-	private Type type;
+	private Type targetType;
 	
 	public Cast(int line, int column, Expression operand, Type type) {
 		super(line, column);
 		this.operand = operand;
-		this.type = type;
+		this.targetType = type;
 	}
 	
 	public Expression getOperand() {
 		return operand;
 	}
 	
-	public Type getType() {
-		return type;
+	public Type getTargetType() {
+		return targetType;
 	}
 	
 	
@@ -29,7 +29,7 @@ public class Cast extends AbstractExpression {
 		return String.format("Cast [%s : %s]: ( %s ) %s", 
 				getLine(),
 				getColumn(),
-				type,
+				targetType,
 				operand);
 	}
 	

@@ -1,6 +1,9 @@
 package errors;
 
+import java.util.List;
+
 import semantics.util.Visitor;
+import syntax.Type;
 import syntax.types.AbstractType;
 
 public class ErrorType extends AbstractType {
@@ -35,7 +38,61 @@ public class ErrorType extends AbstractType {
 
 	@Override
 	public String toString() {
-		return String.format("ERROR [%s : %s] : %s", getLine(), getColumn(), description);
+		return String.format("ERROR | line %s:%s\t%s", getLine(), getColumn(), description);
+	}
+	
+	@Override
+	public boolean isEquivalent(Type other) {
+		return true;
+	}
+	
+	
+	
+	@Override
+	public Type arithmetic(Type other) {
+		return this;
+	}
+	
+	@Override
+	public Type comparison(Type other) {
+		return this;
+	}
+	
+	@Override
+	public Type logicalOperation(Type other) {
+		return this;
+	}
+
+	@Override
+	public Type squareBrackets(Type other) {
+		return this;
+	}
+	
+	@Override
+	public Type cast(Type other) {
+		return this;
+	}
+
+
+	@Override
+	public Type unaryMinus() {
+		return this;
+	}
+
+
+	@Override
+	public Type not() {
+		return this;
+	}
+	
+	@Override
+	public Type attributeAccess(String attribute) {
+		return this;
+	}
+	
+	@Override
+	public Type parenthesesOperator(int line, int column, List<Type> arguments) {
+		return this;
 	}
 
 }

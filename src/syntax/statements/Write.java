@@ -8,7 +8,7 @@ import syntax.AbstractASTNode;
 import syntax.Expression;
 import syntax.Statement;
 
-public class Write extends AbstractASTNode implements Statement {
+public class Write extends AbstractStatement {
 
 	private List<Expression> expressions;
 	

@@ -8,7 +8,7 @@ import syntax.AbstractASTNode;
 import syntax.Expression;
 import syntax.Statement;
 
-public class WhileLoop extends AbstractASTNode implements Statement {
+public class WhileLoop extends AbstractStatement {
 
 	private Expression condition;
 	private List<Statement> statements;
