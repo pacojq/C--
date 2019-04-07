@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import semantics.util.Visitor;
-import syntax.AbstractASTNode;
 import syntax.Expression;
 import syntax.Statement;
 

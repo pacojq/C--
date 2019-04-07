@@ -1,9 +1,7 @@
 package syntax.statements;
 
 import semantics.util.Visitor;
-import syntax.AbstractASTNode;
 import syntax.Expression;
-import syntax.Statement;
 
 public class Return extends AbstractStatement {
 

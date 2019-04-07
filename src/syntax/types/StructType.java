@@ -56,7 +56,7 @@ public class StructType extends AbstractType {
 	@Override
 	public String toString() {
 		String strVariables = "";
-		
+		// TODO
 		return String.format("struct { %s }", strVariables);
 	}
 	

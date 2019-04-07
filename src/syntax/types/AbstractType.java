@@ -32,10 +32,10 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	
 	// Helper methods
 	
-	private Type defaultOperation(Type other, String opperation) {
+	private Type defaultOperation(Type other, String operation) {
 		if (other.getName().equals(ErrorType.NAME))
 			return other;
-		return defaultOperation(opperation);
+		return defaultOperation(operation);
 	}
 	
 	private Type defaultOperation(String opperation) {
