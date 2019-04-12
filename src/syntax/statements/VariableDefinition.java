@@ -1,12 +1,13 @@
 package syntax.statements;
 
-import semantics.util.Visitor;
 import syntax.Definition;
 import syntax.Type;
+import visitor.Visitor;
 
 public class VariableDefinition extends AbstractStatement implements Definition {
 
 	private int scope;
+	private int offset;
 	
 	private String name;
 	private Type type;
@@ -49,5 +50,17 @@ public class VariableDefinition extends AbstractStatement implements Definition 
 	public void setScope(int scope) {
 		this.scope = scope;
 	}
+	
+	
+	@Override
+	public int getOffset() {
+		return this.offset;
+	}
+
+	@Override
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	
 	
 }

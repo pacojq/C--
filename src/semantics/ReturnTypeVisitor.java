@@ -1,10 +1,10 @@
 package semantics;
 
 import errors.ErrorHandler;
-import semantics.util.AbstractVisitor;
 import syntax.*;
 import syntax.statements.*;
 import syntax.types.FunctionType;
+import visitor.AbstractVisitor;
 
 
 public class ReturnTypeVisitor extends AbstractVisitor<Type, Void> {

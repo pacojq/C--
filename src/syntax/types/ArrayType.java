@@ -1,7 +1,7 @@
 package syntax.types;
 
-import semantics.util.Visitor;
 import syntax.Type;
+import visitor.Visitor;
 
 public class ArrayType extends AbstractType {
 
@@ -64,6 +64,12 @@ public class ArrayType extends AbstractType {
 	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
+	}
+
+
+	@Override
+	public int numberOfBytes() {
+		return this.size * this.typeOf.numberOfBytes();
 	}
 
 	

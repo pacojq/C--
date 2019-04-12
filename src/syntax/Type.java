@@ -5,7 +5,7 @@ import java.util.List;
 public interface Type extends ASTNode {
 	
 	String getName();
-	// TODO int getNumberOfBytes();
+	int numberOfBytes();
 	
 	
 	// Operations
@@ -24,7 +24,11 @@ public interface Type extends ASTNode {
 
 	Type attributeAccess(String attribute);
 	Type parenthesesOperator(int line, int column, List<Type> arguments);
-
 	
+	
+	// Code generation
+	String cgSufix();
+
+
 
 }

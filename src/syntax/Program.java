@@ -3,7 +3,7 @@ package syntax;
 import java.util.ArrayList;
 import java.util.List;
 
-import semantics.util.Visitor;
+import visitor.Visitor;
 
 public class Program implements ASTNode {
 

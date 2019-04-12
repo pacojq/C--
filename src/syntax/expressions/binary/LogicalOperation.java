@@ -1,8 +1,8 @@
 package syntax.expressions.binary;
 
-import semantics.util.Visitor;
 import syntax.Expression;
 import syntax.expressions.BinaryOperation;
+import visitor.Visitor;
 
 public class LogicalOperation extends BinaryOperation {
 

@@ -1,7 +1,7 @@
 package syntax.expressions;
 
-import semantics.util.Visitor;
 import syntax.types.IntType;
+import visitor.Visitor;
 
 public class IntLiteral extends AbstractExpression {
 

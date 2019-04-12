@@ -1,7 +1,7 @@
 package syntax.expressions;
 
-import semantics.util.Visitor;
 import syntax.types.CharType;
+import visitor.Visitor;
 
 public class CharLiteral extends AbstractExpression {
 

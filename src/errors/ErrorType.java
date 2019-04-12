@@ -2,9 +2,9 @@ package errors;
 
 import java.util.List;
 
-import semantics.util.Visitor;
 import syntax.Type;
 import syntax.types.AbstractType;
+import visitor.Visitor;
 
 public class ErrorType extends AbstractType {
 
@@ -93,6 +93,11 @@ public class ErrorType extends AbstractType {
 	@Override
 	public Type parenthesesOperator(int line, int column, List<Type> arguments) {
 		return this;
+	}
+
+	@Override
+	public int numberOfBytes() {
+		return 0;
 	}
 
 }

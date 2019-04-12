@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import errors.ErrorHandler;
-import semantics.util.Visitor;
 import syntax.Type;
 import syntax.statements.VariableDefinition;
+import visitor.Visitor;
 
 public class FunctionType extends AbstractType {
 
@@ -85,6 +85,17 @@ public class FunctionType extends AbstractType {
 	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
+	}
+
+	@Override
+	public int numberOfBytes() {
+		return this.returnType.numberOfBytes();
+	}
+	
+	
+	@Override
+	public String cgSufix() {
+		return this.returnType.cgSufix();
 	}
 	
 }

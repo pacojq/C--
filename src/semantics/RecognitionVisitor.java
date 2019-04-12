@@ -2,14 +2,15 @@ package semantics;
 
 import errors.ErrorHandler;
 import semantics.symboltable.SymbolTable;
-import semantics.util.AbstractVisitor;
 import syntax.Definition;
+import syntax.Expression;
 import syntax.Type;
 import syntax.expressions.FunctionInvocation;
 import syntax.expressions.Variable;
 import syntax.statements.FunctionDefinition;
 import syntax.statements.VariableDefinition;
 import syntax.types.StructType;
+import visitor.AbstractVisitor;
 
 
 public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
@@ -109,6 +110,8 @@ public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
 	@Override
 	public Void visit(FunctionInvocation func, Void params) {
 		
+		//super.visit(func, params);
+		
 		// There's no need to call visit on func.getFunction.
 		// We're gonna do that job here.
 		Variable var = func.getFunction();
@@ -120,8 +123,11 @@ public class RecognitionVisitor extends AbstractVisitor<Void, Void> {
 					var.getColumn(),
 					"Cannot invoke a function which is not declared.");
 			def = new VariableDefinition(var.getLine(), var.getColumn(), var.getName(), err);
-		}		
-		var.setDefinition(def);		
+		}
+		var.setDefinition(def);
+		
+		for (Expression expr : func.getArguments())
+			expr.accept(this, params);
 		
 		return null;
 	}

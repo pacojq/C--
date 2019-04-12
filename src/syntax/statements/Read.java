@@ -3,8 +3,8 @@ package syntax.statements;
 import java.util.LinkedList;
 import java.util.List;
 
-import semantics.util.Visitor;
 import syntax.Expression;
+import visitor.Visitor;
 
 public class Read extends AbstractStatement {
 

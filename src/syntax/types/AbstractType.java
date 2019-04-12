@@ -32,10 +32,10 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	
 	// Helper methods
 	
-	private Type defaultOperation(Type other, String operation) {
+	private Type defaultOperation(Type other, String opperation) {
 		if (other.getName().equals(ErrorType.NAME))
 			return other;
-		return defaultOperation(operation);
+		return defaultOperation(opperation);
 	}
 	
 	private Type defaultOperation(String opperation) {
@@ -96,5 +96,15 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	public Type parenthesesOperator(int line, int column, List<Type> arguments) {
 		return defaultOperation("parentheses operator");
 	}
+	
+	
+	
+	// - - - - - - - - - CODE GENERATION - - - - - - - - - 
 
+	
+
+	@Override
+	public String cgSufix() {
+		return "";
+	}
 }

@@ -1,7 +1,7 @@
 package syntax.statements;
 
-import semantics.util.Visitor;
 import syntax.Expression;
+import visitor.Visitor;
 
 public class Assignment extends AbstractStatement {
 

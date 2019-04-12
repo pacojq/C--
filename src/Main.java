@@ -4,6 +4,7 @@ import syntax.*;
 
 import org.antlr.v4.runtime.*;
 
+import code.CodeGeneration;
 import errors.ErrorHandler;
 import errors.MyAntlrErrorListener;
 import introspector.model.IntrospectorModel;
@@ -17,8 +18,7 @@ public class Main {
 			System.err.println("Please, pass me the input file.");
 			return;
 		}
-		//String filename = args[0];
-		String filename = "input5-wrong.txt";		
+		String filename = args[0];	
 		ErrorHandler.getInstance().clear();
 
 		// create a lexer that feeds off of input CharStream
@@ -50,6 +50,9 @@ public class Main {
 		
 		if (ErrorHandler.getInstance().anyError())
 			ErrorHandler.getInstance().showErrors(System.err);
+		
+		
+		new CodeGeneration(ast).run();
 
 		// * The AST is shown
 		IntrospectorModel model = new IntrospectorModel("Program", ast);

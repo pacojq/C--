@@ -1,7 +1,7 @@
 package syntax.expressions;
 
-import semantics.util.Visitor;
 import syntax.types.DoubleType;
+import visitor.Visitor;
 
 public class DoubleLiteral extends AbstractExpression {
 

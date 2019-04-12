@@ -1,7 +1,7 @@
 package syntax.expressions;
 
-import semantics.util.Visitor;
 import syntax.Expression;
+import visitor.Visitor;
 
 public class AttributeAccess extends AbstractExpression {
 

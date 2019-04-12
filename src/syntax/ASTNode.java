@@ -1,6 +1,6 @@
 package syntax;
 
-import semantics.util.Visitor;
+import visitor.Visitor;
 
 public interface ASTNode {
 

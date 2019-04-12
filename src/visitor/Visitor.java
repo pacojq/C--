@@ -1,4 +1,4 @@
-package semantics.util;
+package visitor;
 
 import errors.ErrorType;
 import syntax.Program;

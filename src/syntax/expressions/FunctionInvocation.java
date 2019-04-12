@@ -3,10 +3,10 @@ package syntax.expressions;
 import java.util.ArrayList;
 import java.util.List;
 
-import semantics.util.Visitor;
 import syntax.Definition;
 import syntax.Expression;
 import syntax.Statement;
+import visitor.Visitor;
 
 public class FunctionInvocation extends AbstractExpression implements Statement {
 

@@ -1,7 +1,7 @@
 package syntax.types;
 
-import semantics.util.Visitor;
 import syntax.Type;
+import visitor.Visitor;
 
 public class IntType extends AbstractType {
 
@@ -17,7 +17,7 @@ public class IntType extends AbstractType {
 	@Override
 	public Type arithmetic(Type other) {
 		
-		switch (other.getName()) {		
+		switch (other.getName()) {
 			case CharType.NAME: return this;
 			case IntType.NAME: return this;
 			case DoubleType.NAME: return other;		
@@ -74,6 +74,18 @@ public class IntType extends AbstractType {
 	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
+	}
+
+
+
+	@Override
+	public int numberOfBytes() {
+		return 2;
+	}
+	
+	@Override
+	public String cgSufix() {
+		return "i";
 	}
 	
 }

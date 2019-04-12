@@ -3,16 +3,17 @@ package syntax.statements;
 import java.util.ArrayList;
 import java.util.List;
 
-import semantics.util.Visitor;
 import syntax.AbstractASTNode;
 import syntax.Definition;
 import syntax.Statement;
 import syntax.Type;
 import syntax.types.FunctionType;
+import visitor.Visitor;
 
 public class FunctionDefinition extends AbstractASTNode implements Definition {
 
 	private int scope;
+	private int offset;
 	
 	private String name;
 	private FunctionType functionType;
@@ -71,6 +72,17 @@ public class FunctionDefinition extends AbstractASTNode implements Definition {
 	@Override
 	public void setScope(int scope) {
 		this.scope = scope;
+	}
+	
+	
+	@Override
+	public int getOffset() {
+		return this.offset;
+	}
+
+	@Override
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 	
 }

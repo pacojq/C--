@@ -1,7 +1,7 @@
 package syntax.types;
 
-import semantics.util.Visitor;
 import syntax.Type;
+import visitor.Visitor;
 
 public class CharType extends AbstractType {
 
@@ -54,5 +54,16 @@ public class CharType extends AbstractType {
 	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
+	}
+
+
+	@Override
+	public int numberOfBytes() {
+		return 1;
+	}
+	
+	@Override
+	public String cgSufix() {
+		return "b";
 	}
 }

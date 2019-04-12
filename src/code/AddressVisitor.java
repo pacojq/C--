@@ -1,27 +1,85 @@
-package semantics;
+package code;
 
 import errors.ErrorHandler;
+import syntax.Definition;
 import syntax.Expression;
+import syntax.Program;
+import syntax.Statement;
 import syntax.expressions.ArrayAccess;
 import syntax.expressions.AttributeAccess;
 import syntax.expressions.Variable;
 import syntax.statements.Assignment;
+import syntax.statements.FunctionDefinition;
 import syntax.statements.Read;
-import visitor.AbstractVisitor;
 
-public class LValueVisitor extends AbstractVisitor<Void, Void> {
+public class AddressVisitor extends CGVisitor {
 
 	
+	// * * * * * * * * * * * * * * 
+	//
+	// Address Visitor works for Expressions with LValue
+	//
+	// * * * * * * * * * * * * * * 
+	
+	
 	@Override
-	public Void visit(Variable var, Void params) {
-		var.setLValue(true);
+	public Void visit(Program p, Void params) {
+		for (Definition def : p.getDefinitions())
+			def.accept(this, params);
 		return null;
 	}
 	
+	
+	
+	@Override
+	public Void visit(FunctionDefinition functionDefinition, Void params) {
+		
+		//functionDefinition.getType().accept(this, params);		
+		
+		for (Statement st : functionDefinition.getStatements()) {
+			st.accept(this, params);
+			
+			
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Void visit(Variable variable, Void params) {
+
+		variable.cgAdress = "";
+		Definition def = variable.getDefinition();
+		
+		variable.cgAdress = String.format("pusha %s\n", def.getOffset());
+		
+		// Global
+		if (def.getScope() == 0) {			
+			return null;
+		}
+		// Local
+		else {
+			variable.cgAdress += "pusha BP\n";
+			variable.cgAdress += "addi\n";
+		}		
+		
+		return null;
+	}
+	
+	
 	@Override
 	public Void visit(ArrayAccess arrayAccess, Void params) {
-		super.visit(arrayAccess, params);
-		arrayAccess.setLValue(true);
+		
+		// TODO
+		
 		return null;
 	}
 	
@@ -67,6 +125,5 @@ public class LValueVisitor extends AbstractVisitor<Void, Void> {
 			
 		return null;
 	}
-	
 	
 }

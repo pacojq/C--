@@ -1,6 +1,6 @@
 package syntax.types;
 
-import semantics.util.Visitor;
+import visitor.Visitor;
 
 public class VoidType extends AbstractType {
 
@@ -25,4 +25,12 @@ public class VoidType extends AbstractType {
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
 	}
+
+
+
+	@Override
+	public int numberOfBytes() {
+		return 0;
+	}
+	
 }

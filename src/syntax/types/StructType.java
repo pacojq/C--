@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import errors.ErrorHandler;
-import semantics.util.Visitor;
 import syntax.Type;
 import syntax.statements.VariableDefinition;
+import visitor.Visitor;
 
 
 public class StructType extends AbstractType {
@@ -56,7 +56,7 @@ public class StructType extends AbstractType {
 	@Override
 	public String toString() {
 		String strVariables = "";
-		// TODO
+		
 		return String.format("struct { %s }", strVariables);
 	}
 	
@@ -64,5 +64,13 @@ public class StructType extends AbstractType {
 	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
+	}
+
+	@Override
+	public int numberOfBytes() {
+		int sum = 0;
+		for (VariableDefinition vd : this.variables)
+			sum += vd.getType().numberOfBytes();
+		return sum;
 	}
 }

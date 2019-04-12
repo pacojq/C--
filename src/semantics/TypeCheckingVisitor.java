@@ -5,7 +5,6 @@ import java.util.List;
 
 import errors.ErrorHandler;
 import errors.ErrorType;
-import semantics.util.AbstractVisitor;
 import syntax.Definition;
 import syntax.Expression;
 import syntax.Type;
@@ -23,6 +22,7 @@ import syntax.statements.IfStatement;
 import syntax.statements.Return;
 import syntax.statements.WhileLoop;
 import syntax.types.FunctionType;
+import visitor.AbstractVisitor;
 
 /**
  * TP -> Type: the type of the parent node
@@ -36,7 +36,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void> {
 	@Override
 	public Void visit(Variable variable, Type params) {
 		super.visit(variable, variable.getType());
-		variable.setType(variable.getDefinition().getType());		
+		variable.setType(variable.getDefinition().getType());
 		return null;
 	}
 	

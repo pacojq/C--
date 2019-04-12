@@ -3,9 +3,9 @@ package syntax.statements;
 import java.util.ArrayList;
 import java.util.List;
 
-import semantics.util.Visitor;
 import syntax.Expression;
 import syntax.Statement;
+import visitor.Visitor;
 
 
 public class IfStatement extends AbstractStatement {

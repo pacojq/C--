@@ -8,4 +8,7 @@ public interface Definition extends ASTNode {
 	public int getScope();
 	public void setScope(int scope);
 	
+	public int getOffset();
+	public void setOffset(int offset);
+	
 }
