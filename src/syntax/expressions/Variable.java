@@ -4,9 +4,6 @@ import syntax.Definition;
 import visitor.Visitor;
 
 public class Variable extends AbstractExpression {
-
-	public String cgAdress;
-	public String cgValue;
 	
 	private Definition definition;
 	

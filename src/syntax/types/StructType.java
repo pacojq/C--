@@ -25,7 +25,7 @@ public class StructType extends AbstractType {
 	}
 	
 	
-	private VariableDefinition findVariable(String name) {
+	public VariableDefinition findVariable(String name) {
 		for (VariableDefinition vd : variables)
 			if (vd.getName().equals(name))
 				return vd;

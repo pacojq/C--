@@ -43,6 +43,9 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 		if (variableDefinition.getScope() == 0) {
 			variableDefinition.setOffset(globalOffset);
 			globalOffset += variableDefinition.getType().numberOfBytes();
+			System.out.println(
+					String.format("Global variable %s with offset %s", variableDefinition.getName(), variableDefinition.getOffset())
+				);
 		}
 		
 		return null;

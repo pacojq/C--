@@ -24,6 +24,12 @@ public class Assignment extends AbstractStatement {
 
 	
 	@Override
+	public String toString() {
+		return String.format("%s = %s", left.toString(), right.toString());
+	}
+	
+	
+	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
 	}

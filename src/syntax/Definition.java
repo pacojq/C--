@@ -11,4 +11,9 @@ public interface Definition extends ASTNode {
 	public int getOffset();
 	public void setOffset(int offset);
 	
+	// Code generation
+	public String cgGetExecute();
+	public void cgAppendExecute(String execute, Object... format);
+	public void cgSetExecute(String execute, Object... format);
+	
 }

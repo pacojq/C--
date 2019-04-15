@@ -32,155 +32,155 @@ import syntax.types.StructType;
 import syntax.types.VoidType;
 import visitor.Visitor;
 
-public abstract class CGVisitor implements Visitor<Void, Void> {
+public abstract class CGVisitor<TP, TR> implements Visitor<TP, TR> {
 
 	@Override
-	public Void visit(Program p, Void params) {
+	public TR visit(Program p, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(ErrorType error, Void params) {
+	public TR visit(ErrorType error, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(ArrayType arrayType, Void params) {
+	public TR visit(ArrayType arrayType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(CharType charType, Void params) {
+	public TR visit(CharType charType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(DoubleType doubleType, Void params) {
+	public TR visit(DoubleType doubleType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(FunctionType functionType, Void params) {
+	public TR visit(FunctionType functionType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(IntType intType, Void params) {
+	public TR visit(IntType intType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(StructType structType, Void params) {
+	public TR visit(StructType structType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(VoidType voidType, Void params) {
+	public TR visit(VoidType voidType, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Assignment assignment, Void params) {
+	public TR visit(Assignment assignment, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(FunctionDefinition functionDefinition, Void params) {
+	public TR visit(FunctionDefinition functionDefinition, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(IfStatement ifStatement, Void params) {
+	public TR visit(IfStatement ifStatement, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Read read, Void params) {
+	public TR visit(Read read, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Return returnStmnt, Void params) {
+	public TR visit(Return returnStmnt, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(VariableDefinition variableDefinition, Void params) {
+	public TR visit(VariableDefinition variableDefinition, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(WhileLoop whileLoop, Void params) {
+	public TR visit(WhileLoop whileLoop, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Write write, Void params) {
+	public TR visit(Write write, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Arithmetic arithmetic, Void params) {
+	public TR visit(Arithmetic arithmetic, TP params) {
 		throw new IllegalStateException("ar");
 	}
 
 	@Override
-	public Void visit(Comparison comparison, Void params) {
+	public TR visit(Comparison comparison, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(LogicalOperation logicalOperation, Void params) {
+	public TR visit(LogicalOperation logicalOperation, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(ArrayAccess arrayAccess, Void params) {
+	public TR visit(ArrayAccess arrayAccess, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(AttributeAccess attributeAccess, Void params) {
+	public TR visit(AttributeAccess attributeAccess, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Cast cast, Void params) {
+	public TR visit(Cast cast, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(CharLiteral charLiteral, Void params) {
+	public TR visit(CharLiteral charLiteral, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(DoubleLiteral doubleLiteral, Void params) {
+	public TR visit(DoubleLiteral doubleLiteral, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(FunctionInvocation functionInvocation, Void params) {
+	public TR visit(FunctionInvocation functionInvocation, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(IntLiteral intLiteral, Void params) {
+	public TR visit(IntLiteral intLiteral, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(NotSign notSign, Void params) {
+	public TR visit(NotSign notSign, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(UnaryMinus unaryMinus, Void params) {
+	public TR visit(UnaryMinus unaryMinus, TP params) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public Void visit(Variable variable, Void params) {
+	public TR visit(Variable variable, TP params) {
 		throw new IllegalStateException();
 	}
 

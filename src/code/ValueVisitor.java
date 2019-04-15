@@ -2,21 +2,20 @@ package code;
 
 import syntax.Definition;
 import syntax.expressions.Variable;
+import visitor.AbstractVisitor;
 
-public class ValueVisitor extends CGVisitor {
+public class ValueVisitor extends AbstractVisitor<Void, Void> {//TODO CGVisitor {
 
 	
 	
 	@Override
 	public Void visit(Variable variable, Void params) {
 
-		variable.cgValue = "";
+		variable.cgSetValue("");
 		Definition def = variable.getDefinition();
 		
-		variable.cgValue = String.format(
-				"push%s %s\n", def.getType().cgSufix(), variable.cgAdress
-			);		
-		variable.cgValue = String.format("pusha %s\n", def.getOffset());
+		variable.cgSetValue("push%s %s", def.getType().cgSufix(), variable.cgGetAddress());		
+		//variable.cgSetValue("pusha %s", def.getOffset());
 		
 		return null;
 	}

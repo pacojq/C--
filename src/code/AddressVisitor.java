@@ -1,65 +1,25 @@
 package code;
 
-import errors.ErrorHandler;
 import syntax.Definition;
-import syntax.Expression;
-import syntax.Program;
-import syntax.Statement;
 import syntax.expressions.ArrayAccess;
 import syntax.expressions.AttributeAccess;
 import syntax.expressions.Variable;
 import syntax.statements.Assignment;
-import syntax.statements.FunctionDefinition;
 import syntax.statements.Read;
+import syntax.types.StructType;
 
-public class AddressVisitor extends CGVisitor {
+public class AddressVisitor extends CGVisitor<Void, Void> {
 
 	
-	// * * * * * * * * * * * * * * 
-	//
-	// Address Visitor works for Expressions with LValue
-	//
-	// * * * * * * * * * * * * * * 
 	
-	
-	@Override
-	public Void visit(Program p, Void params) {
-		for (Definition def : p.getDefinitions())
-			def.accept(this, params);
-		return null;
-	}
-	
-	
-	
-	@Override
-	public Void visit(FunctionDefinition functionDefinition, Void params) {
-		
-		//functionDefinition.getType().accept(this, params);		
-		
-		for (Statement st : functionDefinition.getStatements()) {
-			st.accept(this, params);
-			
-			
-		}
-		return null;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+	// - - - - - - - - WE ONLY DEAL WITH L-VALUE EXPRESSIONS - - - - - - - - //
 	
 	
 	@Override
 	public Void visit(Variable variable, Void params) {
 
-		variable.cgAdress = "";
-		Definition def = variable.getDefinition();
-		
-		variable.cgAdress = String.format("pusha %s\n", def.getOffset());
+		Definition def = variable.getDefinition();		
+		variable.cgSetAddress("pusha %s", def.getOffset());
 		
 		// Global
 		if (def.getScope() == 0) {			
@@ -67,27 +27,32 @@ public class AddressVisitor extends CGVisitor {
 		}
 		// Local
 		else {
-			variable.cgAdress += "pusha BP\n";
-			variable.cgAdress += "addi\n";
-		}		
-		
+			variable.cgAppendAddress("pusha BP");
+			variable.cgAppendAddress("addi");
+		}
 		return null;
 	}
 	
 	
 	@Override
 	public Void visit(ArrayAccess arrayAccess, Void params) {
-		
-		// TODO
-		
+		arrayAccess.cgSetAddress(arrayAccess.getArray().cgGetAddress());
+		arrayAccess.cgAppendAddress("pusha %s", arrayAccess.getIndex().cgGetValue());
+		arrayAccess.cgAppendAddress("addi");
 		return null;
 	}
 	
 	
 	@Override
 	public Void visit(AttributeAccess attributeAccess, Void params) {
-		super.visit(attributeAccess, params);
-		attributeAccess.setLValue(true);
+		
+		StructType t = (StructType) attributeAccess.getExpression().getType();
+		int offset = t.findVariable(attributeAccess.getAttributeName()).getOffset();
+		
+		attributeAccess.cgSetAddress(attributeAccess.getExpression().cgGetAddress());
+		attributeAccess.cgAppendAddress("pusha %s", offset);
+		attributeAccess.cgAppendAddress("addi");
+		
 		return null;
 	}
 	
@@ -95,7 +60,7 @@ public class AddressVisitor extends CGVisitor {
 	
 	@Override
 	public Void visit(Read read, Void params) {
-		for (Expression expr : read.getExpressions()) {
+		/*for (Expression expr : read.getExpressions()) {
 			expr.accept(this, params);
 		
 			if (!expr.getLValue()) {
@@ -106,7 +71,7 @@ public class AddressVisitor extends CGVisitor {
 								+ expr.toString());
 			}
 		}
-		
+		*/
 		return null;
 	}
 	
@@ -114,7 +79,7 @@ public class AddressVisitor extends CGVisitor {
 	
 	@Override
 	public Void visit(Assignment assignment, Void params) {
-		super.visit(assignment, params);
+		/*super.visit(assignment, params);
 		
 		if (!assignment.getLeft().getLValue()) {
 			ErrorHandler.getInstance().raiseError(
@@ -122,7 +87,7 @@ public class AddressVisitor extends CGVisitor {
 					assignment.getColumn(), 
 					"Cannot perform an assignment over an expression whose lvalue is false.");
 		}
-			
+		*/
 		return null;
 	}
 	

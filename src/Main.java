@@ -5,6 +5,7 @@ import syntax.*;
 import org.antlr.v4.runtime.*;
 
 import code.CodeGeneration;
+import code.CodeGenerator;
 import errors.ErrorHandler;
 import errors.MyAntlrErrorListener;
 import introspector.model.IntrospectorModel;
@@ -53,6 +54,9 @@ public class Main {
 		
 		
 		new CodeGeneration(ast).run();
+		
+		System.out.println("CODE GENERATED:");
+		System.out.println(CodeGenerator.getInstance().getAllCode(ast));
 
 		// * The AST is shown
 		IntrospectorModel model = new IntrospectorModel("Program", ast);

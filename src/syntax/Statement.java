@@ -1,8 +1,10 @@
 package syntax;
 
 public interface Statement extends ASTNode {
-
-	Definition getContainer();
-	void setContainer(Definition definition);
+	
+	// Code generation
+	public String cgGetExecute();
+	public void cgAppendExecute(String execute, Object... format);
+	public void cgSetExecute(String execute, Object... format);
 	
 }

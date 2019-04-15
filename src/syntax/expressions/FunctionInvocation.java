@@ -3,17 +3,17 @@ package syntax.expressions;
 import java.util.ArrayList;
 import java.util.List;
 
-import syntax.Definition;
 import syntax.Expression;
 import syntax.Statement;
 import visitor.Visitor;
 
 public class FunctionInvocation extends AbstractExpression implements Statement {
-
-	private Definition container;
 	
 	private Variable function;
 	private List<Expression> args;
+	
+	// Code generation
+	private String cgExecute;
 	
 	public FunctionInvocation(Variable function, List<Expression> args) {
 		super(function.getLine(), function.getColumn());
@@ -37,16 +37,32 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 		return visitor.visit(this, params);
 	}
 
-
-	@Override
-	public Definition getContainer() {
-		return container;
-	}
-
-
-	@Override
-	public void setContainer(Definition definition) {
-		this.container = definition;
-	}
 	
+	
+	
+	
+	
+
+	@Override
+	public String cgGetExecute() {
+		return cgExecute;
+	}
+
+
+	@Override
+	public void cgAppendExecute(String execute, Object... format) {
+		if (!execute.endsWith("\n"))
+			execute += "\n";
+		cgExecute += String.format(execute, format);
+	}
+
+
+	@Override
+	public void cgSetExecute(String execute, Object... format) {
+		if (!execute.endsWith("\n"))
+			execute += "\n";
+		cgExecute = String.format(execute, format);
+	}
+
+
 }
