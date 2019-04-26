@@ -35,12 +35,12 @@ public class Variable extends AbstractExpression {
 	
 	@Override
 	public String toString() {
-		String type = "";
+		String type;
 		if (this.definition != null) {
-			type += definition.getType().toString();
+			type = definition.getType().toString();
 		}
 		else {
-			type += "UNDEFINED";
+			type = "UNDEFINED";
 		}
 		return type + " " + this.name;
 	}

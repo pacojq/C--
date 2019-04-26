@@ -19,10 +19,7 @@ public class CharLiteral extends AbstractExpression {
 	
 	@Override
 	public String toString() {
-		return String.format("CharLiteral [%s : %s]: %s", 
-				getLine(),
-				getColumn(),
-				value);
+		return String.format("'%s'", value);
 	}
 	
 	@Override

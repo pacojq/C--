@@ -20,10 +20,7 @@ public class DoubleLiteral extends AbstractExpression {
 	
 	@Override
 	public String toString() {
-		return String.format("DoubleLiteral [%s : %s]: %s", 
-				getLine(),
-				getColumn(),
-				value);
+		return String.format("%s", value);
 	}
 	
 	

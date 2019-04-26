@@ -1,8 +1,5 @@
 package code;
 
-import syntax.Definition;
-import syntax.Program;
-import syntax.Statement;
 import syntax.statements.FunctionDefinition;
 
 public class CodeGenerator {
@@ -18,15 +15,10 @@ public class CodeGenerator {
 	private CodeGenerator() {
 		
 	}
+
+
 	
 	
-	
-	public String getAllCode(Program p) {		
-		StringBuilder code = new StringBuilder();		
-		for (Definition def : p.getDefinitions())
-			code.append( def.cgGetExecute() );
-		return code.toString();
-	}
 	
 	
 }

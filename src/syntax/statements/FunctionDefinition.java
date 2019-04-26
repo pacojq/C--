@@ -15,6 +15,8 @@ public class FunctionDefinition extends AbstractASTNode implements Definition {
 	private int scope;
 	private int offset;
 	
+	public int localBytesSum;
+	
 	private String cgExecute = "";
 	
 	private String name;

@@ -68,6 +68,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 				VariableDefinition vd = (VariableDefinition) st;
 				localBytesSum += vd.getType().numberOfBytes();
 				vd.setOffset(-localBytesSum);
+				functionDefinition.localBytesSum = localBytesSum;
 			}
 		}
 		

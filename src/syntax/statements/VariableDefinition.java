@@ -28,11 +28,10 @@ public class VariableDefinition extends AbstractStatement implements Definition 
 	
 	@Override
 	public String toString() {
-		return String.format("VariableDefinition [%s : %s]: %s %s", 
-				getLine(),
-				getColumn(),
+		return String.format("%s %s (offset %s)", 
 				type,
-				name);
+				name,
+				offset);
 	}
 	
 	@Override

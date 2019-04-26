@@ -11,8 +11,8 @@ public abstract class AbstractExpression extends AbstractASTNode implements Expr
 	
 	
 	// Code Generation
-	private String cgAddress;
-	private String cgValue;
+	private String cgAddress = "ADDRESS-PLACEHOLDER";
+	private String cgValue = "VALUE-PLACEHOLDER";
 	
 
 	public AbstractExpression(int line, int column) {

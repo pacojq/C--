@@ -12,17 +12,6 @@ public class Arithmetic extends BinaryOperation {
 	
 	
 	@Override
-	public String toString() {
-		return String.format("Arithmetic [%s : %s]: %s %s %s", 
-				getLine(),
-				getColumn(),
-				getLeft(),
-				getOperator(),
-				getRight());
-	}
-	
-	
-	@Override
 	public <TP, TR> TR accept(Visitor<TP, TR> visitor, TP params) {
 		return visitor.visit(this, params);
 	}

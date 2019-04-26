@@ -10,6 +10,8 @@ public class Program implements ASTNode {
 	private int line;
 	private int column;
 	
+	public String cgCode;
+	
 	private List<Definition> definitions;
 
 	

@@ -6,7 +6,7 @@ import syntax.Statement;
 public abstract class AbstractStatement extends AbstractASTNode implements Statement {
 
 	
-	private String cgExecute = "";
+	private String cgExecute = "EXECUTE-PLACEHOLDER";
 	
 	
 	public AbstractStatement(int line, int column) {

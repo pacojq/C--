@@ -1,9 +1,11 @@
 package code;
 
 import syntax.Definition;
+import syntax.Expression;
 import syntax.Program;
 import syntax.Statement;
 import syntax.statements.*;
+import syntax.types.FunctionType;
 
 public class ExecuteVisitor extends CGVisitor<Void, Void> {
 
@@ -18,8 +20,23 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	
 	@Override
 	public Void visit(Program p, Void params) {
+		
 		for (Definition def : p.getDefinitions())
 			def.accept(this, params);
+		
+		
+		StringBuilder code = new StringBuilder();
+		code.append("\n#source TODO\n\n"); // TODO
+		
+		code.append("' Invocation to the main fucntion\n");
+		code.append("call main\n");
+		code.append("halt\n\n");
+		
+		for (Definition def : p.getDefinitions())
+			code.append( def.cgGetExecute() );
+		
+		p.cgCode = code.toString();
+		
 		return null;
 	}
 		
@@ -30,9 +47,19 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	
 	@Override
 	public Void visit(FunctionDefinition functionDefinition, Void params) {
-		functionDefinition.cgSetExecute(
-				String.format("' FUNCTION: %s \n", functionDefinition.getName())
-			);
+		
+		functionDefinition.cgSetExecute("\n#line %s", functionDefinition.getLine());
+		functionDefinition.cgAppendExecute(" %s:\n\n", functionDefinition.getName());
+		
+		functionDefinition.cgAppendExecute("\t' * Parameters:\n");
+		FunctionType ft = (FunctionType) functionDefinition.getType();
+		for (VariableDefinition vd : ft.getParams()) {
+			vd.accept(this, params);
+			functionDefinition.cgAppendExecute(vd.cgGetExecute());
+		}
+		
+		functionDefinition.cgAppendExecute("\t' * Local Variables:\n");
+		functionDefinition.cgAppendExecute("\tenter\t%s", functionDefinition.localBytesSum);
 		
 		for (Statement st : functionDefinition.getStatements()) {
 			st.accept(this, params);
@@ -44,9 +71,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	
 	@Override
 	public Void visit(VariableDefinition variableDefinition, Void params) {		
-		/*variableDefinition.cgSetExecute(
-				String.format("' VARIABLE: %s \n", variableDefinition.getName())
-			);*/
+		variableDefinition.cgSetExecute("\t' * %s", variableDefinition.toString());
 		return null;
 	}
 	
@@ -56,16 +81,16 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(Assignment assignment, Void params) {
 		
-		assignment.cgSetExecute("\t'%s", assignment.toString());
+		assignment.cgSetExecute("\n#line %s \t' * %s", assignment.getLine(), assignment);
 		
 		assignment.getLeft().accept(addressVisitor, null);
 		assignment.cgAppendExecute(assignment.getLeft().cgGetAddress());
 		
-		assignment.getRight().accept(addressVisitor, null);
+		//assignment.getLeft().accept(addressVisitor, null);
 		assignment.getRight().accept(valueVisitor, null);
 		assignment.cgAppendExecute(assignment.getRight().cgGetValue());
 		
-		assignment.cgAppendExecute("load%s", assignment.getLeft().getType().cgSufix());
+		assignment.cgAppendExecute("\tstore%s", assignment.getLeft().getType().cgSufix());
 		return null;
 	}
 	
@@ -73,7 +98,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(IfStatement ifStatement, Void params) {
 		
-		
+		ifStatement.cgSetExecute("\n#line %s \t' * %s", ifStatement.getLine(), ifStatement);
 		
 		return null;
 	}
@@ -81,11 +106,15 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(Read read, Void params) {
 		
+		read.cgSetExecute("\n#line %s \t' * %s", read.getLine(), read);
+		
 		return null;
 	}
 	
 	@Override
 	public Void visit(Return ret, Void params) {
+		
+		ret.cgSetExecute("\n#line %s \t' * %s", ret.getLine(), ret);
 		
 		return null;
 	}
@@ -93,11 +122,22 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(WhileLoop whileLoop, Void params) {
 		
+		whileLoop.cgSetExecute("\n#line %s \t' * %s", whileLoop.getLine(), whileLoop);
+		
 		return null;
 	}
 	
 	@Override
 	public Void visit(Write write, Void params) {
+		
+		write.cgSetExecute("\n#line %s", write.getLine());
+		
+		for (Expression expr : write.getExpressions()) {
+			write.cgAppendExecute("\t' * Write %s", expr.toString());
+			write.cgAppendExecute(expr.cgGetValue());
+			System.err.println("Write " +expr + " type:"+ expr.getType());
+			write.cgAppendExecute("\tout%s", expr.getType().cgSufix());
+		}
 		
 		return null;
 	}

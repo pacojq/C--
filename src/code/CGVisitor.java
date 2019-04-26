@@ -101,57 +101,57 @@ public abstract class CGVisitor<TP, TR> implements Visitor<TP, TR> {
 
 	@Override
 	public TR visit(Return returnStmnt, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach Return with this visitor.");
 	}
 
 	@Override
 	public TR visit(VariableDefinition variableDefinition, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach VariableDefinition with this visitor.");
 	}
 
 	@Override
 	public TR visit(WhileLoop whileLoop, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach WhileLoop with this visitor.");
 	}
 
 	@Override
 	public TR visit(Write write, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach Write with this visitor.");
 	}
 
 	@Override
 	public TR visit(Arithmetic arithmetic, TP params) {
-		throw new IllegalStateException("ar");
+		throw new IllegalStateException("We should not reach Arithmetic with this visitor.");
 	}
 
 	@Override
 	public TR visit(Comparison comparison, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach Comparison with this visitor.");
 	}
 
 	@Override
 	public TR visit(LogicalOperation logicalOperation, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach LogicalOperatin with this visitor.");
 	}
 
 	@Override
 	public TR visit(ArrayAccess arrayAccess, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach ArrayAccess with this visitor.");
 	}
 
 	@Override
 	public TR visit(AttributeAccess attributeAccess, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach AttributeAccess with this visitor.");
 	}
 
 	@Override
 	public TR visit(Cast cast, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach Cast with this visitor.");
 	}
 
 	@Override
 	public TR visit(CharLiteral charLiteral, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException("We should not reach CharLiteral with this visitor.");
 	}
 
 	@Override

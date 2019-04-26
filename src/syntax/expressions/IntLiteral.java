@@ -20,10 +20,7 @@ public class IntLiteral extends AbstractExpression {
 	
 	@Override
 	public String toString() {
-		return String.format("IntLiteral [%s : %s]: %s", 
-				getLine(),
-				getColumn(),
-				value);
+		return String.format("%s", value);
 	}
 	
 	

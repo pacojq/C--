@@ -29,5 +29,8 @@ public abstract class BinaryOperation extends AbstractExpression {
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		return String.format("%s %s %s", left, operator, right);
+	}
 }

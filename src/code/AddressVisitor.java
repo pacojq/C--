@@ -4,7 +4,6 @@ import syntax.Definition;
 import syntax.expressions.ArrayAccess;
 import syntax.expressions.AttributeAccess;
 import syntax.expressions.Variable;
-import syntax.statements.Assignment;
 import syntax.statements.Read;
 import syntax.types.StructType;
 
@@ -19,16 +18,16 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	public Void visit(Variable variable, Void params) {
 
 		Definition def = variable.getDefinition();		
-		variable.cgSetAddress("pusha %s", def.getOffset());
+		variable.cgSetAddress("\tpushi\t%s", def.getOffset());
 		
 		// Global
-		if (def.getScope() == 0) {			
+		if (def.getScope() == 0) {
 			return null;
 		}
 		// Local
 		else {
-			variable.cgAppendAddress("pusha BP");
-			variable.cgAppendAddress("addi");
+			variable.cgAppendAddress("\tpush\tBP");
+			variable.cgAppendAddress("\taddi");
 		}
 		return null;
 	}
@@ -76,19 +75,25 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	}
 	
 	
-	
+/*	
 	@Override
 	public Void visit(Assignment assignment, Void params) {
-		/*super.visit(assignment, params);
+//		super.visit(assignment, params);
+//		
+//		if (!assignment.getLeft().getLValue()) {
+//			ErrorHandler.getInstance().raiseError(
+//					assignment.getLine(), 
+//					assignment.getColumn(), 
+//					"Cannot perform an assignment over an expression whose lvalue is false.");
+//		}
 		
-		if (!assignment.getLeft().getLValue()) {
-			ErrorHandler.getInstance().raiseError(
-					assignment.getLine(), 
-					assignment.getColumn(), 
-					"Cannot perform an assignment over an expression whose lvalue is false.");
-		}
-		*/
 		return null;
 	}
+*/	
+	
+	
+	
+	
+	
 	
 }
