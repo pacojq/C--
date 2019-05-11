@@ -39,7 +39,21 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 
 	
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append(function.getName());
+		str.append("(");
+		
+		if (args.size() > 0) {
+			str.append(args.get(0).toString());
+			for (int i = 1; i < args.size(); i ++)
+				str.append(", " + args.get(i));
+		}
+		
+		str.append(")");
+		return str.toString();
+	}
 	
 	
 

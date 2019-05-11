@@ -4,8 +4,10 @@ import syntax.Definition;
 import syntax.Expression;
 import syntax.Program;
 import syntax.Statement;
+import syntax.expressions.FunctionInvocation;
 import syntax.statements.*;
 import syntax.types.FunctionType;
+import syntax.types.VoidType;
 
 public class ExecuteVisitor extends CGVisitor<Void, Void> {
 
@@ -25,15 +27,21 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 			def.accept(this, params);
 		
 		
+		
 		StringBuilder code = new StringBuilder();
 		code.append("\n#source TODO\n\n"); // TODO
+		
+		for (Definition def : p.getDefinitions())
+			if (def instanceof VariableDefinition)
+				code.append( def.cgGetExecute() );
 		
 		code.append("' Invocation to the main fucntion\n");
 		code.append("call main\n");
 		code.append("halt\n\n");
 		
 		for (Definition def : p.getDefinitions())
-			code.append( def.cgGetExecute() );
+			if (def instanceof FunctionDefinition)
+				code.append( def.cgGetExecute() );
 		
 		p.cgCode = code.toString();
 		
@@ -90,7 +98,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		assignment.getRight().accept(valueVisitor, null);
 		assignment.cgAppendExecute(assignment.getRight().cgGetValue());
 		
-		assignment.cgAppendExecute("\tstore%s", assignment.getLeft().getType().cgSufix());
+		assignment.cgAppendExecute("\tstore%s", assignment.getLeft().getType().cgSuffix());
 		return null;
 	}
 	
@@ -135,9 +143,23 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		for (Expression expr : write.getExpressions()) {
 			write.cgAppendExecute("\t' * Write %s", expr.toString());
 			write.cgAppendExecute(expr.cgGetValue());
-			System.err.println("Write " +expr + " type:"+ expr.getType());
-			write.cgAppendExecute("\tout%s", expr.getType().cgSufix());
+			write.cgAppendExecute("\tout%s", expr.getType().cgSuffix());
 		}
+		
+		return null;
+	}
+	
+	
+	@Override
+	public Void visit(FunctionInvocation funcInvocation, Void p) {
+		
+		funcInvocation.accept(valueVisitor, null);
+		funcInvocation.cgSetExecute(funcInvocation.cgGetValue());
+		
+		Definition def = funcInvocation.getFunction().getDefinition();
+		FunctionType t = (FunctionType) def.getType();
+		if (!(t.getReturnType() instanceof VoidType))
+			funcInvocation.cgAppendExecute("pop%s", t.getReturnType().cgSuffix());
 		
 		return null;
 	}

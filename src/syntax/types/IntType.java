@@ -13,6 +13,11 @@ public class IntType extends AbstractType {
 	}
 	
 	
+	@Override
+	public boolean isLogical() {
+		return true;
+	}
+	
 	
 	@Override
 	public Type arithmetic(Type other) {
@@ -32,17 +37,17 @@ public class IntType extends AbstractType {
 		switch (other.getName()) {
 			case IntType.NAME: return this;
 		}
-		return super.arithmetic(other);
+		return super.comparison(other);
 	}
 	
 	
 	@Override
 	public Type logicalOperation(Type other) {
 		
-		switch (other.getName()) {
-			case IntType.NAME: return this;
+		if (other.isLogical()) {
+			return this;
 		}
-		return super.arithmetic(other);
+		return super.logicalOperation(other);
 	}
 	
 	
@@ -84,7 +89,7 @@ public class IntType extends AbstractType {
 	}
 	
 	@Override
-	public String cgSufix() {
+	public String cgSuffix() {
 		return "i";
 	}
 	

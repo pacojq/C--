@@ -1,6 +1,7 @@
 package code;
 
 import errors.ErrorType;
+import syntax.ASTNode;
 import syntax.Program;
 import syntax.expressions.ArrayAccess;
 import syntax.expressions.AttributeAccess;
@@ -34,19 +35,30 @@ import visitor.Visitor;
 
 public abstract class CGVisitor<TP, TR> implements Visitor<TP, TR> {
 
+	private String getMsg(ASTNode node) {
+		String str = String.format("[%s : %s] - %s should not visit %s", 
+				node.getLine(),
+				node.getColumn(),
+				this.getClass().getName(),
+				node.toString());
+		return str;
+	}
+	
+	
+	
 	@Override
 	public TR visit(Program p, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(p));
 	}
 
 	@Override
 	public TR visit(ErrorType error, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(error));
 	}
 
 	@Override
 	public TR visit(ArrayType arrayType, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(arrayType));
 	}
 
 	@Override
@@ -141,47 +153,47 @@ public abstract class CGVisitor<TP, TR> implements Visitor<TP, TR> {
 
 	@Override
 	public TR visit(AttributeAccess attributeAccess, TP params) {
-		throw new IllegalStateException("We should not reach AttributeAccess with this visitor.");
+		throw new IllegalStateException(getMsg(attributeAccess));
 	}
 
 	@Override
 	public TR visit(Cast cast, TP params) {
-		throw new IllegalStateException("We should not reach Cast with this visitor.");
+		throw new IllegalStateException(getMsg(cast));
 	}
 
 	@Override
 	public TR visit(CharLiteral charLiteral, TP params) {
-		throw new IllegalStateException("We should not reach CharLiteral with this visitor.");
+		throw new IllegalStateException(getMsg(charLiteral));
 	}
 
 	@Override
 	public TR visit(DoubleLiteral doubleLiteral, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(doubleLiteral));
 	}
 
 	@Override
 	public TR visit(FunctionInvocation functionInvocation, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(functionInvocation));
 	}
 
 	@Override
 	public TR visit(IntLiteral intLiteral, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(intLiteral));
 	}
 
 	@Override
 	public TR visit(NotSign notSign, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(notSign));
 	}
 
 	@Override
 	public TR visit(UnaryMinus unaryMinus, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(unaryMinus));
 	}
 
 	@Override
 	public TR visit(Variable variable, TP params) {
-		throw new IllegalStateException();
+		throw new IllegalStateException(getMsg(variable));
 	}
 
 }

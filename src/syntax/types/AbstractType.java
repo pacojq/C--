@@ -104,7 +104,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	
 
 	@Override
-	public String cgSufix() {
+	public String cgSuffix() {
 		return "";
 	}
 }
