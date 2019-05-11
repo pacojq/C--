@@ -42,7 +42,7 @@ public class IntType extends AbstractType {
 		switch (other.getName()) {
 			case IntType.NAME: return this;
 		}
-		return super.arithmetic(other);
+		return super.logicalOperation(other);
 	}
 	
 	
