@@ -26,7 +26,7 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 		}
 		// Local
 		else {
-			variable.cgAppendAddress("\tpush\tBP");
+			variable.cgAppendAddress("\tpush\tbp");
 			variable.cgAppendAddress("\taddi");
 		}
 		return null;

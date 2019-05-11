@@ -29,13 +29,13 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		
 		
 		StringBuilder code = new StringBuilder();
-		code.append("\n#source TODO\n\n"); // TODO
+		//code.append("\n#source TODO\n\n"); // TODO
 		
 		for (Definition def : p.getDefinitions())
 			if (def instanceof VariableDefinition)
 				code.append( def.cgGetExecute() );
 		
-		code.append("' Invocation to the main fucntion\n");
+		code.append("\n' Invocation to the main fucntion\n");
 		code.append("call main\n");
 		code.append("halt\n\n");
 		

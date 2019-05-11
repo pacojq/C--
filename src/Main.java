@@ -42,6 +42,11 @@ public class Main {
 		
 		if (ErrorHandler.getInstance().anyError()) {
 			ErrorHandler.getInstance().showErrors(System.err);
+			
+			// * The AST is shown
+			IntrospectorModel model = new IntrospectorModel("Program", ast);
+			new IntrospectorTree("Introspector", model);
+			
 			return;
 		}
 		
@@ -56,7 +61,7 @@ public class Main {
 		new IntrospectorTree("Introspector", model);
 		
 		
-		new CodeGeneration(ast).run();
+		new CodeGeneration(ast).run(filename);
 			
 		System.out.println();
 		System.out.println("- - - - - CODE GENERATED - - - - -");
