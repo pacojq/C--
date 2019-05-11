@@ -33,4 +33,10 @@ public class AttributeAccess extends AbstractExpression {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return String.format("%s.%s", expression.toString(), attributeName);
+	}
+	
+	
 }

@@ -94,8 +94,8 @@ public class FunctionType extends AbstractType {
 	
 	
 	@Override
-	public String cgSufix() {
-		return this.returnType.cgSufix();
+	public String cgSuffix() {
+		return this.returnType.cgSuffix();
 	}
 	
 }

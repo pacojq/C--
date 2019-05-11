@@ -1,2 +1,4 @@
-Implement the type checking pass of the semantic analysis phase. Annotate the AST with all the type information. Detect the type errors in the 5 input files provided.
-
+Generate code for:
+- Function invocation (function definition has already been implemented in laboratory 10)
+- The return statement
+Very important: Your compiler must be able to compile big-input.txt (the file cannot be changed), and you *must* bring the file to the exam. 

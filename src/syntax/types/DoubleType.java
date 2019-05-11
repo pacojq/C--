@@ -65,7 +65,7 @@ public class DoubleType extends AbstractType {
 	}
 	
 	@Override
-	public String cgSufix() {
+	public String cgSuffix() {
 		return "d";
 	}
 	

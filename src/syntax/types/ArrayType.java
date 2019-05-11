@@ -45,6 +45,15 @@ public class ArrayType extends AbstractType {
 	
 	
 	
+	@Override
+	public Type squareBrackets(Type other) {
+		if (other.getName().equals(IntType.NAME)) {
+			return this.typeOf;
+		}
+		return super.squareBrackets(other);
+	}
+	
+	
 	
 	
 	@Override
@@ -54,11 +63,7 @@ public class ArrayType extends AbstractType {
 	
 	@Override
 	public String toString() {
-		return String.format("ArrayType [%s : %s] : size=[ %s ] type=[ %s ]", 
-				getLine(),
-				getColumn(),
-				size, 
-				typeOf);
+		return String.format("%s[%s]", typeOf, size);
 	}
 	
 	@Override

@@ -13,8 +13,6 @@ public class CodeGeneration {
 	
 	public void run() {
 		this.program.accept(new OffsetVisitor(), null);
-		//this.program.accept(new AddressVisitor(), null);
-		//this.program.accept(new ValueVisitor(), null);
 		this.program.accept(new ExecuteVisitor(), null);
 	}
 	

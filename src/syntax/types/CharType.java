@@ -63,7 +63,7 @@ public class CharType extends AbstractType {
 	}
 	
 	@Override
-	public String cgSufix() {
+	public String cgSuffix() {
 		return "b";
 	}
 }

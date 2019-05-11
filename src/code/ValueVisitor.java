@@ -67,7 +67,7 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(CharLiteral charLiteral, Void params) {
 		charLiteral.cgSetValue("\tpush%s\t%s", 
-				charLiteral.getType().cgSufix(), 
+				charLiteral.getType().cgSuffix(), 
 				(int) charLiteral.getValue());
 		return null;
 	}
@@ -75,7 +75,7 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(IntLiteral intLiteral, Void params) {
 		intLiteral.cgSetValue("\tpush%s\t%s", 
-				intLiteral.getType().cgSufix(), 
+				intLiteral.getType().cgSuffix(), 
 				(int) intLiteral.getValue());
 		return null;
 	}
@@ -83,7 +83,7 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(DoubleLiteral doubleLiteral, Void params) {
 		doubleLiteral.cgSetValue("\tpush%s\t%s", 
-				doubleLiteral.getType().cgSufix(), 
+				doubleLiteral.getType().cgSuffix(), 
 				doubleLiteral.getValue());
 		return null;
 	}
@@ -119,7 +119,7 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 		variable.cgSetValue("");
 		Definition def = variable.getDefinition();
 		
-		variable.cgSetValue("push%s\t%s", def.getType().cgSufix(), variable.cgGetAddress());
+		variable.cgSetValue("push%s\t%s", def.getType().cgSuffix(), variable.cgGetAddress());
 		//variable.cgSetValue("pusha %s", def.getOffset());
 		
 		

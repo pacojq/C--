@@ -1,0 +1,7 @@
+
+ret <int_constant>, <int_constant>, <int_constant>	  
+
+	Returns from a function invocation. 
+	The first constant represents the bytes to return; 
+	the second one, the bytes of all the local variables; 	
+	and the last one, the bytes of all the arguments.
