@@ -1,24 +1,15 @@
 package code;
 
 import syntax.Definition;
-import syntax.Expression;
-import syntax.expressions.ArrayAccess;
-import syntax.expressions.AttributeAccess;
-import syntax.expressions.Cast;
-import syntax.expressions.CharLiteral;
-import syntax.expressions.DoubleLiteral;
-import syntax.expressions.FunctionInvocation;
-import syntax.expressions.IntLiteral;
-import syntax.expressions.NotSign;
-import syntax.expressions.UnaryMinus;
-import syntax.expressions.Variable;
-import syntax.expressions.binary.Arithmetic;
-import syntax.expressions.binary.Comparison;
-import syntax.expressions.binary.LogicalOperation;
-import visitor.AbstractVisitor;
+import syntax.expressions.*;
+import syntax.expressions.binary.*;
 
 public class ValueVisitor extends CGVisitor<Void, Void> {
 
+	
+	public AddressVisitor addressVisitor;
+	
+	
 	
 	// WE ONLY DEAL WITH EXPRESSIONS //
 	
@@ -26,6 +17,15 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(Arithmetic arithmetic, Void params) {
 		
+		arithmetic.getLeft().accept(this, params);
+		arithmetic.getRight().accept(this,  params);		
+		
+		arithmetic.cgSetValue(arithmetic.getLeft().cgGetValue());
+		arithmetic.cgAppendValue(arithmetic.getRight().cgGetValue());
+		arithmetic.cgAppendValue(
+				CodeGenerator.getInstance().arithmetic(arithmetic)
+			);		
+				
 		return null;
 	}
 
@@ -116,12 +116,11 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(Variable variable, Void params) {
 
-		variable.cgSetValue("");
+		variable.accept(addressVisitor, null);
 		Definition def = variable.getDefinition();
 		
-		variable.cgSetValue("push%s\t%s", def.getType().cgSuffix(), variable.cgGetAddress());
-		//variable.cgSetValue("pusha %s", def.getOffset());
-		
+		variable.cgSetValue(variable.cgGetAddress());
+		variable.cgAppendValue("\tload%s", def.getType().cgSuffix());
 		
 		return null;
 	}

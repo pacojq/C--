@@ -17,6 +17,8 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	public ExecuteVisitor() {
 		addressVisitor = new AddressVisitor();
 		valueVisitor = new ValueVisitor();
+
+		valueVisitor.addressVisitor = addressVisitor;
 	}
 	
 	
@@ -25,7 +27,6 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		
 		for (Definition def : p.getDefinitions())
 			def.accept(this, params);
-		
 		
 		
 		StringBuilder code = new StringBuilder();
@@ -60,19 +61,44 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		functionDefinition.cgAppendExecute(" %s:\n\n", functionDefinition.getName());
 		
 		functionDefinition.cgAppendExecute("\t' * Parameters:\n");
+		int argBytesSum = 0;
 		FunctionType ft = (FunctionType) functionDefinition.getType();
 		for (VariableDefinition vd : ft.getParams()) {
 			vd.accept(this, params);
 			functionDefinition.cgAppendExecute(vd.cgGetExecute());
+			argBytesSum += vd.getType().numberOfBytes();
 		}
 		
+		
+		
 		functionDefinition.cgAppendExecute("\t' * Local Variables:\n");
+		for (Statement st : functionDefinition.getStatements()) {
+			if (st instanceof VariableDefinition) {
+				st.accept(this, params);
+				functionDefinition.cgAppendExecute(st.cgGetExecute());
+			}
+		}
+		
 		functionDefinition.cgAppendExecute("\tenter\t%s", functionDefinition.localBytesSum);
 		
 		for (Statement st : functionDefinition.getStatements()) {
+			if (st instanceof VariableDefinition)
+				continue;
+			
 			st.accept(this, params);
 			functionDefinition.cgAppendExecute(st.cgGetExecute());
 		}
+		
+		
+		//The first constant represents the bytes to return; 
+		//the second one, the bytes of all the local variables; 	
+		//and the last one, the bytes of all the arguments.
+		functionDefinition.cgAppendExecute("\tret %s, %s, %s",
+				ft.getReturnType().numberOfBytes(),
+				functionDefinition.localBytesSum,
+				argBytesSum
+			);
+		
 		return null;
 	}
 	
@@ -107,6 +133,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	public Void visit(IfStatement ifStatement, Void params) {
 		
 		ifStatement.cgSetExecute("\n#line %s \t' * %s", ifStatement.getLine(), ifStatement);
+		// TODO
 		
 		return null;
 	}
@@ -115,6 +142,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	public Void visit(Read read, Void params) {
 		
 		read.cgSetExecute("\n#line %s \t' * %s", read.getLine(), read);
+		// TODO
 		
 		return null;
 	}
@@ -123,6 +151,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	public Void visit(Return ret, Void params) {
 		
 		ret.cgSetExecute("\n#line %s \t' * %s", ret.getLine(), ret);
+		// TODO
 		
 		return null;
 	}
@@ -131,6 +160,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	public Void visit(WhileLoop whileLoop, Void params) {
 		
 		whileLoop.cgSetExecute("\n#line %s \t' * %s", whileLoop.getLine(), whileLoop);
+		// TODO
 		
 		return null;
 	}

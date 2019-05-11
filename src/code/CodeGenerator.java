@@ -1,6 +1,7 @@
 package code;
 
-import syntax.statements.FunctionDefinition;
+import syntax.Type;
+import syntax.expressions.binary.Arithmetic;
 
 public class CodeGenerator {
 
@@ -16,8 +17,32 @@ public class CodeGenerator {
 		
 	}
 
+	
+	public String arithmetic(Arithmetic arithmetic) {
+		
+		String op = arithmetic.getOperator();
+		Type t = arithmetic.getType();
+		
+		String cgOperator = "";
+		switch (op) {
+			case "+": cgOperator = "sum"; break;
+			case "-": cgOperator = "sub"; break;
+			case "*": cgOperator = "mul"; break;
+			case "/": cgOperator = "div"; break;
+		
+			default: return "INVALID ARITHMETIC OPERATOR " + op;
+		}
+		
+		return "\t" + cgOperator + t.cgSuffix() + "\n";
+	}
 
 	
+	public String convert(Type a, Type b) {
+		
+		// TODO
+		
+		return "";
+	}
 	
 	
 	

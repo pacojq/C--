@@ -18,15 +18,15 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	public Void visit(Variable variable, Void params) {
 
 		Definition def = variable.getDefinition();		
-		variable.cgSetAddress("\tpushi\t%s", def.getOffset());
 		
 		// Global
 		if (def.getScope() == 0) {
-			return null;
+			variable.cgSetAddress("\tpushi\t%s", def.getOffset());
 		}
 		// Local
 		else {
-			variable.cgAppendAddress("\tpush\tbp");
+			variable.cgSetAddress("\tpush\tbp");
+			variable.cgAppendAddress("\tpushi\t%s", def.getOffset());
 			variable.cgAppendAddress("\taddi");
 		}
 		return null;
@@ -36,8 +36,8 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(ArrayAccess arrayAccess, Void params) {
 		arrayAccess.cgSetAddress(arrayAccess.getArray().cgGetAddress());
-		arrayAccess.cgAppendAddress("pusha %s", arrayAccess.getIndex().cgGetValue());
-		arrayAccess.cgAppendAddress("addi");
+		arrayAccess.cgAppendAddress("\tpusha %s", arrayAccess.getIndex().cgGetValue());
+		arrayAccess.cgAppendAddress("\taddi");
 		return null;
 	}
 	
@@ -49,8 +49,8 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 		int offset = t.findVariable(attributeAccess.getAttributeName()).getOffset();
 		
 		attributeAccess.cgSetAddress(attributeAccess.getExpression().cgGetAddress());
-		attributeAccess.cgAppendAddress("pusha %s", offset);
-		attributeAccess.cgAppendAddress("addi");
+		attributeAccess.cgAppendAddress("\tpusha %s", offset);
+		attributeAccess.cgAppendAddress("\taddi");
 		
 		return null;
 	}

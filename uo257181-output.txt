@@ -16,6 +16,7 @@ halt
 	' * Parameters:
 	' * Local Variables:
 	enter	0
+	ret 0, 0, 0
 
 #line 16
  f:
@@ -24,21 +25,26 @@ halt
 	' * double r (offset 6)
 	' * int e (offset 4)
 	' * Local Variables:
-	enter	7
 	' * double real (offset -4)
 	' * char c (offset -5)
 	' * int result (offset -7)
+	enter	7
 
 #line 20 	' * double real = double r * 10.0
-	pushi	-4
 	push	bp
+	pushi	-4
 	addi
-VALUE-PLACEHOLDER
+	push	bp
+	pushi	6
+	addi
+	loadf
+	pushf	10.0
+	mulf
 	storef
 
 #line 21 	' * char c = '0'
-	pushi	-5
 	push	bp
+	pushi	-5
 	addi
 	pushb	48
 	storeb
@@ -46,73 +52,75 @@ VALUE-PLACEHOLDER
 #line 22 	' * syntax.statements.IfStatement@5f2050f6
 
 #line 28 	' * syntax.statements.Return@3b81a1bc
+	ret 2, 7, 6
 
 #line 31
  initialize:
 
 	' * Parameters:
 	' * Local Variables:
-	enter	2
 	' * int i (offset -2)
+	enter	2
 
 #line 33 	' * ArrayAccess [33 : 3] : array=[ ArrayAccess [33 : 3] : array=[ int[3][8] fibonacci ] index=[ 0 ] ] index=[ 0 ] = 0
 ADDRESS-PLACEHOLDER
-pusha VALUE-PLACEHOLDER
-addi
+	pusha VALUE-PLACEHOLDER
+	addi
 	pushi	0
 	storei
 
 #line 34 	' * ArrayAccess [34 : 3] : array=[ ArrayAccess [34 : 3] : array=[ int[3][8] fibonacci ] index=[ 0 ] ] index=[ 1 ] = 1
 ADDRESS-PLACEHOLDER
-pusha VALUE-PLACEHOLDER
-addi
+	pusha VALUE-PLACEHOLDER
+	addi
 	pushi	1
 	storei
 
 #line 35 	' * ArrayAccess [35 : 3] : array=[ ArrayAccess [35 : 3] : array=[ int[3][8] fibonacci ] index=[ 0 ] ] index=[ 2 ] = 1
 ADDRESS-PLACEHOLDER
-pusha VALUE-PLACEHOLDER
-addi
+	pusha VALUE-PLACEHOLDER
+	addi
 	pushi	1
 	storei
 
 #line 36 	' * int i = 1
-	pushi	-2
 	push	bp
+	pushi	-2
 	addi
 	pushi	1
 	storei
 
 #line 37 	' * syntax.statements.WhileLoop@64616ca2
+	ret 0, 2, 0
 
 #line 47
  main:
 
 	' * Parameters:
 	' * Local Variables:
-	enter	4
 	' * int i (offset -2)
 	' * int j (offset -4)
+	enter	4
 VALUE-PLACEHOLDER
 
 #line 50 	' * int i = 0
-	pushi	-2
 	push	bp
+	pushi	-2
 	addi
 	pushi	0
 	storei
 
 #line 51 	' * struct {  } pair.character = '0'
 ADDRESS-PLACEHOLDER
-pusha 2
-addi
+	pusha 2
+	addi
 	pushb	48
 	storeb
 
 #line 52 	' * struct {  } pair.integer = (int) '0'
 ADDRESS-PLACEHOLDER
-pusha 0
-addi
+	pusha 0
+	addi
 VALUE-PLACEHOLDER
 	storei
 
@@ -129,8 +137,8 @@ popi
 VALUE-PLACEHOLDER
 
 #line 59 	' * int i = 0
-	pushi	-2
 	push	bp
+	pushi	-2
 	addi
 	pushi	0
 	storei
@@ -139,8 +147,8 @@ VALUE-PLACEHOLDER
 
 #line 68 	' * ArrayAccess [68 : 3] : array=[ ArrayAccess [68 : 3] : array=[ struct {  }[2] acme ] index=[ 1 ].employees ] index=[ 1 ].age = 56
 ADDRESS-PLACEHOLDER
-pusha 0
-addi
+	pusha 0
+	addi
 	pushi	56
 	storei
 
@@ -154,8 +162,8 @@ VALUE-PLACEHOLDER
 	outb
 
 #line 71 	' * int i = 0
-	pushi	-2
 	push	bp
+	pushi	-2
 	addi
 	pushi	0
 	storei
@@ -163,10 +171,11 @@ VALUE-PLACEHOLDER
 #line 72 	' * syntax.statements.WhileLoop@4e04a765
 
 #line 82 	' * int i = 0
-	pushi	-2
 	push	bp
+	pushi	-2
 	addi
 	pushi	0
 	storei
 
 #line 83 	' * syntax.statements.WhileLoop@783e6358
+	ret 0, 4, 0

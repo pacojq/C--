@@ -28,6 +28,7 @@ public interface Type extends ASTNode {
 	
 	// Code generation
 	String cgSuffix();
+	// TODO String cgConvert(Type other);
 
 
 
