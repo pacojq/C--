@@ -30,7 +30,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		
 		
 		StringBuilder code = new StringBuilder();
-		//code.append("\n#source TODO\n\n"); // TODO
+		//code.append("\n#source TODO\n\n"); // TODO source ...
 		
 		for (Definition def : p.getDefinitions())
 			if (def instanceof VariableDefinition)
@@ -135,6 +135,38 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		ifStatement.cgSetExecute("\n#line %s \t' * %s", ifStatement.getLine(), ifStatement);
 		// TODO
 		
+		int labelNumber = CodeGenerator.getInstance().getLabels(2);
+		
+		Expression condition = ifStatement.getCondition();
+		
+		// Check condition
+		condition.accept(valueVisitor, null);
+		ifStatement.cgSetExecute(condition.cgGetValue());
+		
+		// Jump to else if false (0)
+		ifStatement.cgAppendExecute("\tjz label%s", labelNumber);
+		
+		
+		// Execute all the "if" part...
+		for (Statement st : ifStatement.getIfPart()) {
+			st.accept(this, params);
+			ifStatement.cgAppendExecute(st.cgGetExecute());
+		}
+		
+		// ...and jump over the else part
+		ifStatement.cgAppendExecute("\tjmp label%s", labelNumber + 1);
+		
+		
+		// Execute all the "else" part
+		ifStatement.cgAppendExecute("\tlabel%s", labelNumber);
+		for (Statement st : ifStatement.getElsePart()) {
+			st.accept(this, params);
+			ifStatement.cgAppendExecute(st.cgGetExecute());
+		}
+		
+		// End
+		ifStatement.cgAppendExecute("\tlabel%s", labelNumber + 1);
+		
 		return null;
 	}
 	
@@ -161,7 +193,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		
 		whileLoop.cgSetExecute("\n#line %s \t' * %s", whileLoop.getLine(), whileLoop);
 		// TODO
-		
+				
 		return null;
 	}
 	
@@ -189,7 +221,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		Definition def = funcInvocation.getFunction().getDefinition();
 		FunctionType t = (FunctionType) def.getType();
 		if (!(t.getReturnType() instanceof VoidType))
-			funcInvocation.cgAppendExecute("pop%s", t.getReturnType().cgSuffix());
+			funcInvocation.cgAppendExecute("\tpop%s", t.getReturnType().cgSuffix());
 		
 		return null;
 	}

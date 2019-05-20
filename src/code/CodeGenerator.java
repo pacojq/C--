@@ -13,10 +13,24 @@ public class CodeGenerator {
 	}
 	
 	
+	
+	private int label;
+	
+	
 	private CodeGenerator() {
 		
 	}
 
+	
+	
+	public int getLabels(int numberOfLabels) {
+		
+		int temp = this.label;
+		this.label += numberOfLabels;
+		return temp;		
+	}
+	
+	
 	
 	public String arithmetic(Arithmetic arithmetic) {
 		
@@ -32,6 +46,8 @@ public class CodeGenerator {
 		
 			default: return "INVALID ARITHMETIC OPERATOR " + op;
 		}
+		
+		// TODO type promotion ?
 		
 		return "\t" + cgOperator + t.cgSuffix() + "\n";
 	}
