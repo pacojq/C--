@@ -54,10 +54,23 @@ public class StructType extends AbstractType {
 	
 	
 	@Override
+	public boolean isEquivalent(Type other) {
+		return this.toString().equals(other.toString());
+	}
+	
+	
+	
+	@Override
 	public String toString() {
-		String strVariables = "";
+		StringBuilder str = new StringBuilder();
 		
-		return String.format("struct { %s }", strVariables);
+		if (variables.size() > 0)
+			str.append(variables.get(0).toString());
+		
+		for (int i = 1; i < variables.size(); i ++)
+			str.append(", " + variables.get(0).toString());
+		
+		return String.format("struct{ %s }", str.toString());
 	}
 	
 	

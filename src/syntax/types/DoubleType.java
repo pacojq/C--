@@ -1,5 +1,6 @@
 package syntax.types;
 
+import code.CodeGenerator;
 import syntax.Type;
 import visitor.Visitor;
 
@@ -67,6 +68,20 @@ public class DoubleType extends AbstractType {
 	@Override
 	public String cgSuffix() {
 		return "f";
+	}
+	
+	
+	@Override
+	public String cgConvert(Type other) {
+		
+		switch (other.getName()) {
+			case IntType.NAME:
+				return CodeGenerator.getInstance().f2i();
+			case CharType.NAME:
+				return CodeGenerator.getInstance().f2i()
+						+ CodeGenerator.getInstance().i2b();
+		}
+		return super.cgConvert(other);
 	}
 	
 }

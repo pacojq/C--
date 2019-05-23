@@ -1,5 +1,6 @@
 package syntax.types;
 
+import code.CodeGenerator;
 import syntax.Type;
 import visitor.Visitor;
 
@@ -65,5 +66,19 @@ public class CharType extends AbstractType {
 	@Override
 	public String cgSuffix() {
 		return "b";
+	}
+	
+	
+	@Override
+	public String cgConvert(Type other) {
+		
+		switch (other.getName()) {
+			case IntType.NAME:
+				return CodeGenerator.getInstance().b2i();
+			case DoubleType.NAME:
+				return CodeGenerator.getInstance().b2i()
+						+ CodeGenerator.getInstance().i2f();
+		}
+		return super.cgConvert(other);
 	}
 }

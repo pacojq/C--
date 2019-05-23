@@ -98,20 +98,18 @@ public class FunctionDefinition extends AbstractASTNode implements Definition {
 
 
 	@Override
-	public void cgAppendExecute(String execute, Object... format) {
-		if (execute == null) execute = ""; // TODO remove this line
+	public void cgAppendExecute(String execute) {
 		if (!execute.endsWith("\n"))
 			execute += "\n";
-		cgExecute += String.format(execute, format);
+		cgExecute += execute;
 	}
 
 
 	@Override
-	public void cgSetExecute(String execute, Object... format) {
-		if (execute == null) execute = ""; // TODO remove this line
+	public void cgSetExecute(String execute) {
 		if (!execute.endsWith("\n"))
 			execute += "\n";
-		cgExecute = String.format(execute, format);
+		cgExecute = execute;
 	}
 	
 }

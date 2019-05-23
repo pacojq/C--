@@ -10,6 +10,8 @@ import syntax.types.StructType;
 public class AddressVisitor extends CGVisitor<Void, Void> {
 
 	
+	private CodeGenerator cg = CodeGenerator.getInstance();
+	
 	
 	// - - - - - - - - WE ONLY DEAL WITH L-VALUE EXPRESSIONS - - - - - - - - //
 	
@@ -21,13 +23,13 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 		
 		// Global
 		if (def.getScope() == 0) {
-			variable.cgSetAddress("\tpushi\t%s", def.getOffset());
+			variable.cgSetAddress(cg.push("i", def.getOffset()));
 		}
 		// Local
 		else {
-			variable.cgSetAddress("\tpush\tbp");
-			variable.cgAppendAddress("\tpushi\t%s", def.getOffset());
-			variable.cgAppendAddress("\taddi");
+			variable.cgSetAddress(cg.pushbp());
+			variable.cgAppendAddress(cg.push("i", def.getOffset()));
+			variable.cgAppendAddress(cg.add("i"));
 		}
 		return null;
 	}
@@ -36,8 +38,8 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(ArrayAccess arrayAccess, Void params) {
 		arrayAccess.cgSetAddress(arrayAccess.getArray().cgGetAddress());
-		arrayAccess.cgAppendAddress("\tpusha %s", arrayAccess.getIndex().cgGetValue());
-		arrayAccess.cgAppendAddress("\taddi");
+		arrayAccess.cgAppendAddress(arrayAccess.getIndex().cgGetValue());
+		arrayAccess.cgAppendAddress(cg.add("i"));
 		return null;
 	}
 	
@@ -49,8 +51,8 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 		int offset = t.findVariable(attributeAccess.getAttributeName()).getOffset();
 		
 		attributeAccess.cgSetAddress(attributeAccess.getExpression().cgGetAddress());
-		attributeAccess.cgAppendAddress("\tpusha %s", offset);
-		attributeAccess.cgAppendAddress("\taddi");
+		attributeAccess.cgAppendAddress(cg.push("a", offset));
+		attributeAccess.cgAppendAddress(cg.add("i"));
 		
 		return null;
 	}

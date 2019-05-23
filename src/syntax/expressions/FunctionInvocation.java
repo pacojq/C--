@@ -64,18 +64,18 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 
 
 	@Override
-	public void cgAppendExecute(String execute, Object... format) {
+	public void cgAppendExecute(String execute) {
 		if (!execute.endsWith("\n"))
 			execute += "\n";
-		cgExecute += String.format(execute, format);
+		cgExecute += execute;
 	}
 
 
 	@Override
-	public void cgSetExecute(String execute, Object... format) {
+	public void cgSetExecute(String execute) {
 		if (!execute.endsWith("\n"))
 			execute += "\n";
-		cgExecute = String.format(execute, format);
+		cgExecute = execute;
 	}
 
 

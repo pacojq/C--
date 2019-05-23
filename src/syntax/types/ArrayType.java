@@ -63,7 +63,7 @@ public class ArrayType extends AbstractType {
 	
 	@Override
 	public String toString() {
-		return String.format("%s[%s]", typeOf, size);
+		return String.format("[%s, %s]", size, typeOf);
 	}
 	
 	@Override

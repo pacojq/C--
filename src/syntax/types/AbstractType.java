@@ -30,6 +30,9 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	
 	
 	
+	
+	
+	
 	// Helper methods
 	
 	private Type defaultOperation(Type other, String opperation) {
@@ -107,4 +110,11 @@ public abstract class AbstractType extends AbstractASTNode implements Type {
 	public String cgSuffix() {
 		return "";
 	}
+	
+	
+	@Override
+	public String cgConvert(Type other) {
+		return "";
+	}
+	
 }

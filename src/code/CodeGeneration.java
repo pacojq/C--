@@ -26,7 +26,7 @@ public class CodeGeneration {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
 			
 			writer.newLine();
-			writer.write("#source " + input + "\n");
+			writer.write("#source \"" + input + "\"\n");
 			writer.newLine();
 			writer.write(this.program.cgCode);	
 			

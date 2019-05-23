@@ -1,36 +1,36 @@
 
-#source big-input.txt
+#source "big-input.txt"
 
-	' * struct {  } pair (offset 0)
-	' * struct {  }[2] acme (offset 3)
-	' * int[3][8] fibonacci (offset 11)
+	' * struct{ int integer (offset 0), int integer (offset 0) } pair (offset 0)
+	' * [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme (offset 3)
+	' * [8, [3, int]] fibonacci (offset 11)
 
-' Invocation to the main fucntion
+' Invocation to the main function
 call main
 halt
 
 
-#line 14
+#line	14	' * FunctionDefinition [14 : 1]: void p()
  p:
 
-	' * Parameters:
-	' * Local Variables:
+	' * Parameters
+	' * Local variables
 	enter	0
-	ret 0, 0, 0
+	ret	0, 0, 0
 
-#line 16
+#line	16	' * FunctionDefinition [16 : 1]: int f(double r (offset 6), int e (offset 4))
  f:
 
-	' * Parameters:
+	' * Parameters
 	' * double r (offset 6)
 	' * int e (offset 4)
-	' * Local Variables:
+	' * Local variables
 	' * double real (offset -4)
 	' * char c (offset -5)
 	' * int result (offset -7)
 	enter	7
 
-#line 20 	' * double real = double r * 10.0
+#line	20	' * double real = double r * 10.0
 	push	bp
 	pushi	-4
 	addi
@@ -42,140 +42,382 @@ halt
 	mulf
 	storef
 
-#line 21 	' * char c = '0'
+#line	21	' * char c = '0'
 	push	bp
 	pushi	-5
 	addi
 	pushb	48
 	storeb
 
-#line 22 	' * syntax.statements.IfStatement@5f2050f6
+#line	22	' * if (int e < 256)
+VALUE-PLACEHOLDER
+	jz label2
 
-#line 28 	' * syntax.statements.Return@3b81a1bc
-	ret 2, 7, 6
+#line	23	' * char c = (char) int e
+	push	bp
+	pushi	-5
+	addi
+	push	bp
+	pushi	4
+	addi
+	loadi
+	i2b
+	storeb
 
-#line 31
+#line	24	' * int result = (int) char c
+	push	bp
+	pushi	-7
+	addi
+	push	bp
+	pushi	-5
+	addi
+	loadb
+	b2i
+	storei
+	jmp label2
+label0:
+
+#line	27	' * int result = (int) double real
+	push	bp
+	pushi	-7
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadf
+	f2i
+	storei
+label1:
+
+#line	28	' * syntax.statements.Return@3b81a1bc
+	push	bp
+	pushi	-7
+	addi
+	loadi
+	ret	2, 7, 6
+
+#line	31	' * FunctionDefinition [31 : 1]: void initialize()
  initialize:
 
-	' * Parameters:
-	' * Local Variables:
+	' * Parameters
+	' * Local variables
 	' * int i (offset -2)
 	enter	2
 
-#line 33 	' * ArrayAccess [33 : 3] : array=[ ArrayAccess [33 : 3] : array=[ int[3][8] fibonacci ] index=[ 0 ] ] index=[ 0 ] = 0
+#line	33	' * ArrayAccess [33 : 3] : array=[ ArrayAccess [33 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 0 ] = 0
 ADDRESS-PLACEHOLDER
-	pusha VALUE-PLACEHOLDER
+VALUE-PLACEHOLDER
 	addi
 	pushi	0
 	storei
 
-#line 34 	' * ArrayAccess [34 : 3] : array=[ ArrayAccess [34 : 3] : array=[ int[3][8] fibonacci ] index=[ 0 ] ] index=[ 1 ] = 1
+#line	34	' * ArrayAccess [34 : 3] : array=[ ArrayAccess [34 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 1 ] = 1
 ADDRESS-PLACEHOLDER
-	pusha VALUE-PLACEHOLDER
+VALUE-PLACEHOLDER
 	addi
 	pushi	1
 	storei
 
-#line 35 	' * ArrayAccess [35 : 3] : array=[ ArrayAccess [35 : 3] : array=[ int[3][8] fibonacci ] index=[ 0 ] ] index=[ 2 ] = 1
+#line	35	' * ArrayAccess [35 : 3] : array=[ ArrayAccess [35 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 2 ] = 1
 ADDRESS-PLACEHOLDER
-	pusha VALUE-PLACEHOLDER
+VALUE-PLACEHOLDER
 	addi
 	pushi	1
 	storei
 
-#line 36 	' * int i = 1
+#line	36	' * int i = 1
 	push	bp
 	pushi	-2
 	addi
 	pushi	1
 	storei
 
-#line 37 	' * syntax.statements.WhileLoop@64616ca2
-	ret 0, 2, 0
+#line	37	' * while (int i < 8)
+	jmp label4
+VALUE-PLACEHOLDER
+	jz label4
 
-#line 47
+#line	38	' * ArrayAccess [38 : 5] : array=[ ArrayAccess [38 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ] = ArrayAccess [38 : 23] : array=[ ArrayAccess [38 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i - 1 ] ] index=[ 1 ]
+ADDRESS-PLACEHOLDER
+VALUE-PLACEHOLDER
+	addi
+VALUE-PLACEHOLDER
+	storei
+
+#line	39	' * ArrayAccess [39 : 5] : array=[ ArrayAccess [39 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ] = ArrayAccess [39 : 23] : array=[ ArrayAccess [39 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i - 1 ] ] index=[ 2 ]
+ADDRESS-PLACEHOLDER
+VALUE-PLACEHOLDER
+	addi
+VALUE-PLACEHOLDER
+	storei
+
+#line	40	' * ArrayAccess [40 : 5] : array=[ ArrayAccess [40 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 2 ] = ArrayAccess [40 : 23] : array=[ ArrayAccess [40 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ] + ArrayAccess [40 : 41] : array=[ ArrayAccess [40 : 41] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ]
+ADDRESS-PLACEHOLDER
+VALUE-PLACEHOLDER
+	addi
+VALUE-PLACEHOLDERVALUE-PLACEHOLDER	addi
+	storei
+
+#line	41	' * int i = int i + 1
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label4
+label3:
+	ret	0, 2, 0
+
+#line	47	' * FunctionDefinition [47 : 1]: void main()
  main:
 
-	' * Parameters:
-	' * Local Variables:
+	' * Parameters
+	' * Local variables
 	' * int i (offset -2)
 	' * int j (offset -4)
 	enter	4
 VALUE-PLACEHOLDER
 
-#line 50 	' * int i = 0
+#line	50	' * int i = 0
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line 51 	' * struct {  } pair.character = '0'
+#line	51	' * struct{ int integer (offset 0), int integer (offset 0) } pair.character = '0'
 ADDRESS-PLACEHOLDER
-	pusha 2
+	pusha	2
 	addi
 	pushb	48
 	storeb
 
-#line 52 	' * struct {  } pair.integer = (int) '0'
+#line	52	' * struct{ int integer (offset 0), int integer (offset 0) } pair.integer = (int) '0'
 ADDRESS-PLACEHOLDER
-	pusha 0
+	pusha	0
 	addi
-VALUE-PLACEHOLDER
+	pushb	48
+	b2i
 	storei
 
-#line 55
-	' * Write f((double) int i, (int) struct {  } pair.character)
+#line	55	' * syntax.statements.Write@64616ca2
+	' *  Write %sf((double) int i, (int) struct{ int integer (offset 0), int integer (offset 0) } pair.character)
 VALUE-PLACEHOLDER
 	outi
-	' * Write '
+	' *  Write %s'
 '
-VALUE-PLACEHOLDER
+	pushb	10
 	outb
 VALUE-PLACEHOLDER
-popi
+	popi
 VALUE-PLACEHOLDER
 
-#line 59 	' * int i = 0
+#line	59	' * int i = 0
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line 60 	' * syntax.statements.WhileLoop@13fee20c
+#line	60	' * while (int i < 8)
+	jmp label6
+VALUE-PLACEHOLDER
+	jz label6
 
-#line 68 	' * ArrayAccess [68 : 3] : array=[ ArrayAccess [68 : 3] : array=[ struct {  }[2] acme ] index=[ 1 ].employees ] index=[ 1 ].age = 56
+#line	62	' * syntax.statements.Write@13fee20c
+	' *  Write %s'('
+	pushb	40
+	outb
+	' *  Write %sint i + 1
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	outi
+	' *  Write %s')'
+	pushb	41
+	outb
+	' *  Write %sArrayAccess [62 : 28] : array=[ ArrayAccess [62 : 28] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ]
+VALUE-PLACEHOLDER
+	outi
+	' *  Write %s'+'
+	pushb	43
+	outb
+	' *  Write %sArrayAccess [63 : 16] : array=[ ArrayAccess [63 : 16] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ]
+VALUE-PLACEHOLDER
+	outi
+	' *  Write %s'='
+	pushb	61
+	outb
+	' *  Write %sArrayAccess [64 : 11] : array=[ ArrayAccess [64 : 11] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 2 ]
+VALUE-PLACEHOLDER
+	outi
+	' *  Write %s'
+'
+	pushb	10
+	outb
+
+#line	65	' * int i = int i + 1
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label6
+label5:
+
+#line	68	' * ArrayAccess [68 : 3] : array=[ ArrayAccess [68 : 3] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ 1 ].employees ] index=[ 1 ].age = 56
 ADDRESS-PLACEHOLDER
-	pusha 0
+	pusha	0
 	addi
 	pushi	56
 	storei
 
-#line 70
-	' * Write ArrayAccess [70 : 9] : array=[ ArrayAccess [70 : 9] : array=[ struct {  }[2] acme ] index=[ 1 ].employees ] index=[ 1 ].age
+#line	70	' * syntax.statements.Write@4e04a765
+	' *  Write %sArrayAccess [70 : 9] : array=[ ArrayAccess [70 : 9] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ 1 ].employees ] index=[ 1 ].age
 VALUE-PLACEHOLDER
 	outi
-	' * Write '
+	' *  Write %s'
 '
-VALUE-PLACEHOLDER
+	pushb	10
 	outb
 
-#line 71 	' * int i = 0
+#line	71	' * int i = 0
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line 72 	' * syntax.statements.WhileLoop@4e04a765
+#line	72	' * while (int i < 2)
+	jmp label8
+VALUE-PLACEHOLDER
+	jz label8
 
-#line 82 	' * int i = 0
+#line	73	' * int j = 0
+	push	bp
+	pushi	-4
+	addi
+	pushi	0
+	storei
+
+#line	74	' * while (int j < 2)
+	jmp label10
+VALUE-PLACEHOLDER
+	jz label10
+
+#line	75	' * ArrayAccess [75 : 7] : array=[ ArrayAccess [75 : 7] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ int i ].employees ] index=[ int j ].age = int i + int j
+ADDRESS-PLACEHOLDER
+	pusha	0
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	addi
+	storei
+
+#line	76	' * int j = int j + 1
+	push	bp
+	pushi	-4
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label10
+label9:
+
+#line	78	' * int i = int i + 1
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label10
+label7:
+
+#line	82	' * int i = 0
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line 83 	' * syntax.statements.WhileLoop@783e6358
-	ret 0, 4, 0
+#line	83	' * while (int i < 2)
+	jmp label12
+VALUE-PLACEHOLDER
+	jz label12
+
+#line	84	' * int j = 0
+	push	bp
+	pushi	-4
+	addi
+	pushi	0
+	storei
+
+#line	85	' * while (int j < 2)
+	jmp label14
+VALUE-PLACEHOLDER
+	jz label14
+
+#line	87	' * syntax.statements.Write@783e6358
+	' *  Write %sArrayAccess [87 : 13] : array=[ ArrayAccess [87 : 13] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ int i ].employees ] index=[ int j ].age
+VALUE-PLACEHOLDER
+	outi
+	' *  Write %s' '
+	pushb	32
+	outb
+
+#line	88	' * int j = int j + 1
+	push	bp
+	pushi	-4
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label14
+label13:
+
+#line	90	' * int i = int i + 1
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label14
+label11:
+	ret	0, 4, 0

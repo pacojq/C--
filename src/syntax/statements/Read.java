@@ -8,7 +8,6 @@ import visitor.Visitor;
 
 public class Read extends AbstractStatement {
 
-	// TODO syntax sugar
 	private List<Expression> expressions;
 	
 	public Read(int line, int column, List<Expression> expressions) {

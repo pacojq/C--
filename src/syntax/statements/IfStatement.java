@@ -46,4 +46,9 @@ public class IfStatement extends AbstractStatement {
 		return visitor.visit(this, params);
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("if (%s)", this.getCondition().toString());
+	}
+	
 }

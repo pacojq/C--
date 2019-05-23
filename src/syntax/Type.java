@@ -6,8 +6,7 @@ public interface Type extends ASTNode {
 	
 	String getName();
 	int numberOfBytes();
-	
-	
+		
 	// Operations
 	
 	boolean isLogical();
@@ -28,8 +27,7 @@ public interface Type extends ASTNode {
 	
 	// Code generation
 	String cgSuffix();
-	// TODO String cgConvert(Type other);
-
+	String cgConvert(Type other);
 
 
 }

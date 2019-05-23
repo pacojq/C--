@@ -63,7 +63,6 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
 		for (Statement st : functionDefinition.getStatements()) {
 			st.accept(this, params);
 			
-			// TODO maybe find a cleaner way to do this
 			if (st instanceof VariableDefinition) {
 				VariableDefinition vd = (VariableDefinition) st;
 				localBytesSum += vd.getType().numberOfBytes();

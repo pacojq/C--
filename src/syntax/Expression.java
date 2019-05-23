@@ -12,10 +12,10 @@ public interface Expression extends ASTNode {
 	// Code Generation
 	
 	String cgGetAddress();
-	void cgAppendAddress(String address, Object... format);
-	void cgSetAddress(String address, Object... format);
+	void cgAppendAddress(String address);
+	void cgSetAddress(String address);
 	
 	String cgGetValue();
-	void cgAppendValue(String value, Object... format);
-	void cgSetValue(String value, Object... format);
+	void cgAppendValue(String value);
+	void cgSetValue(String value);
 }

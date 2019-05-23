@@ -32,6 +32,10 @@ public class WhileLoop extends AbstractStatement {
 		return visitor.visit(this, params);
 	}
 
+	@Override
+	public String toString() {
+		return String.format("while (%s)", this.getCondition().toString());
+	}
 	
 	
 }
