@@ -6,8 +6,6 @@ import syntax.Type;
 import syntax.expressions.ArrayAccess;
 import syntax.expressions.AttributeAccess;
 import syntax.expressions.Variable;
-import syntax.statements.Read;
-import syntax.types.ArrayType;
 import syntax.types.IntType;
 import syntax.types.StructType;
 
@@ -45,7 +43,7 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 				
 		Expression array = arrayAccess.getArray();
 		Expression index = arrayAccess.getIndex();
-		Type typeOf = ((ArrayType) array.getType()).getTypeOf();
+		Type typeOf = arrayAccess.getType();
 		
 		// First take the address of the whole array
 		array.accept(this, null);
@@ -73,54 +71,20 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(AttributeAccess attributeAccess, Void params) {
 		
-		StructType t = (StructType) attributeAccess.getExpression().getType();
+		Expression struct = attributeAccess.getExpression();
+		
+		StructType t = (StructType) struct.getType();
 		int offset = t.findVariable(attributeAccess.getAttributeName()).getOffset();
 		
-		attributeAccess.cgSetAddress(attributeAccess.getExpression().cgGetAddress());
-		attributeAccess.cgAppendAddress(cg.push("a", offset));
+		struct.accept(this, null);
+		attributeAccess.cgSetAddress(struct.cgGetAddress());
+		attributeAccess.cgAppendAddress(cg.push("i", offset));
 		attributeAccess.cgAppendAddress(cg.add("i"));
 		
 		return null;
 	}
 	
 	
-	
-	@Override
-	public Void visit(Read read, Void params) {
-		
-		// TODO
-		
-		/*for (Expression expr : read.getExpressions()) {
-			expr.accept(this, params);
-		
-			if (!expr.getLValue()) {
-				ErrorHandler.getInstance().raiseError(
-						expr.getLine(), 
-						expr.getColumn(), 
-						"Cannot perform a read statement with an expression whose lvalue is false: " 
-								+ expr.toString());
-			}
-		}
-		*/
-		return null;
-	}
-	
-	
-/*	
-	@Override
-	public Void visit(Assignment assignment, Void params) {
-//		super.visit(assignment, params);
-//		
-//		if (!assignment.getLeft().getLValue()) {
-//			ErrorHandler.getInstance().raiseError(
-//					assignment.getLine(), 
-//					assignment.getColumn(), 
-//					"Cannot perform an assignment over an expression whose lvalue is false.");
-//		}
-		
-		return null;
-	}
-*/	
 	
 	
 	

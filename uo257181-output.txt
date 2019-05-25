@@ -1,7 +1,7 @@
 
 #source "big-input.txt"
 
-	' * struct{ int integer (offset 0), int integer (offset 0) } pair (offset 0)
+	' * struct{ int integer (offset 0), char character (offset 2) } pair (offset 0)
 	' * [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme (offset 3)
 	' * [8, [3, int]] fibonacci (offset 11)
 
@@ -10,7 +10,7 @@ call main
 halt
 
 
-#line	14	' * FunctionDefinition [14 : 1]: void p()
+#line	14
  p:
 
 	' * Parameters
@@ -18,7 +18,7 @@ halt
 	enter	0
 	ret	0, 0, 0
 
-#line	16	' * FunctionDefinition [16 : 1]: int f(double r (offset 6), int e (offset 4))
+#line	16
  f:
 
 	' * Parameters
@@ -30,7 +30,7 @@ halt
 	' * int result (offset -7)
 	enter	7
 
-#line	20	' * double real = double r * 10.0
+#line	20
 	push	bp
 	pushi	-4
 	addi
@@ -42,14 +42,14 @@ halt
 	mulf
 	storef
 
-#line	21	' * char c = '0'
+#line	21
 	push	bp
 	pushi	-5
 	addi
 	pushb	48
 	storeb
 
-#line	22	' * if (int e < 256)
+#line	22
 	push	bp
 	pushi	4
 	addi
@@ -59,7 +59,7 @@ halt
 	jz	label0
 	' * Body of the if branch
 
-#line	23	' * char c = (char) int e
+#line	23
 	push	bp
 	pushi	-5
 	addi
@@ -70,7 +70,7 @@ halt
 	i2b
 	storeb
 
-#line	24	' * int result = (int) char c
+#line	24
 	push	bp
 	pushi	-7
 	addi
@@ -84,7 +84,7 @@ halt
 label0:
 	' * Body of the else branch
 
-#line	27	' * int result = (int) double real
+#line	27
 	push	bp
 	pushi	-7
 	addi
@@ -96,14 +96,15 @@ label0:
 	storei
 label1:
 
-#line	28	' * syntax.statements.Return@5f2050f6
+#line	28
+	' * Return
 	push	bp
 	pushi	-7
 	addi
 	loadi
 	ret	2, 7, 6
 
-#line	31	' * FunctionDefinition [31 : 1]: void initialize()
+#line	31
  initialize:
 
 	' * Parameters
@@ -111,7 +112,7 @@ label1:
 	' * int i (offset -2)
 	enter	2
 
-#line	33	' * ArrayAccess [33 : 3] : array=[ ArrayAccess [33 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 0 ] = 0
+#line	33
 	pusha	11
 	pushi	0
 	pushi	6
@@ -124,7 +125,7 @@ label1:
 	pushi	0
 	storei
 
-#line	34	' * ArrayAccess [34 : 3] : array=[ ArrayAccess [34 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 1 ] = 1
+#line	34
 	pusha	11
 	pushi	0
 	pushi	6
@@ -137,7 +138,7 @@ label1:
 	pushi	1
 	storei
 
-#line	35	' * ArrayAccess [35 : 3] : array=[ ArrayAccess [35 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 2 ] = 1
+#line	35
 	pusha	11
 	pushi	0
 	pushi	6
@@ -150,15 +151,15 @@ label1:
 	pushi	1
 	storei
 
-#line	36	' * int i = 1
+#line	36
 	push	bp
 	pushi	-2
 	addi
 	pushi	1
 	storei
 
-#line	37	' * while (int i < 8)
-	jmp	label2
+#line	37
+label2:
 	push	bp
 	pushi	-2
 	addi
@@ -166,8 +167,9 @@ label1:
 	pushi	8
 	lti
 	jz	label3
+	' * Body of the while statement
 
-#line	38	' * ArrayAccess [38 : 5] : array=[ ArrayAccess [38 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ] = ArrayAccess [38 : 23] : array=[ ArrayAccess [38 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i - 1 ] ] index=[ 1 ]
+#line	38
 	pusha	11
 	push	bp
 	pushi	-2
@@ -180,10 +182,24 @@ label1:
 	pushi	2
 	muli
 	addi
-VALUE-PLACEHOLDER
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	subi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	loadi
 	storei
 
-#line	39	' * ArrayAccess [39 : 5] : array=[ ArrayAccess [39 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ] = ArrayAccess [39 : 23] : array=[ ArrayAccess [39 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i - 1 ] ] index=[ 2 ]
+#line	39
 	pusha	11
 	push	bp
 	pushi	-2
@@ -196,10 +212,24 @@ VALUE-PLACEHOLDER
 	pushi	2
 	muli
 	addi
-VALUE-PLACEHOLDER
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	subi
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
+	addi
+	loadi
 	storei
 
-#line	40	' * ArrayAccess [40 : 5] : array=[ ArrayAccess [40 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 2 ] = ArrayAccess [40 : 23] : array=[ ArrayAccess [40 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ] + ArrayAccess [40 : 41] : array=[ ArrayAccess [40 : 41] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ]
+#line	40
 	pusha	11
 	push	bp
 	pushi	-2
@@ -212,10 +242,36 @@ VALUE-PLACEHOLDER
 	pushi	2
 	muli
 	addi
-VALUE-PLACEHOLDERVALUE-PLACEHOLDER	addi
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
+	addi
+	loadi
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	loadi
+	addi
 	storei
 
-#line	41	' * int i = int i + 1
+#line	41
 	push	bp
 	pushi	-2
 	addi
@@ -230,7 +286,7 @@ VALUE-PLACEHOLDERVALUE-PLACEHOLDER	addi
 label3:
 	ret	0, 2, 0
 
-#line	47	' * FunctionDefinition [47 : 1]: void main()
+#line	47
  main:
 
 	' * Parameters
@@ -238,51 +294,70 @@ label3:
 	' * int i (offset -2)
 	' * int j (offset -4)
 	enter	4
-VALUE-PLACEHOLDER
 
-#line	50	' * int i = 0
+#line	49
+	call	p
+
+#line	50
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line	51	' * struct{ int integer (offset 0), int integer (offset 0) } pair.character = '0'
-ADDRESS-PLACEHOLDER
-	pusha	2
+#line	51
+	pusha	0
+	pushi	2
 	addi
 	pushb	48
 	storeb
 
-#line	52	' * struct{ int integer (offset 0), int integer (offset 0) } pair.integer = (int) '0'
-ADDRESS-PLACEHOLDER
+#line	52
 	pusha	0
+	pushi	0
 	addi
 	pushb	48
 	b2i
 	storei
 
-#line	55	' * syntax.statements.Write@3b81a1bc
-	' *  Write %sf((double) int i, (int) struct{ int integer (offset 0), int integer (offset 0) } pair.character)
-VALUE-PLACEHOLDER
+#line	55
+	' * Write
+
+#line	55
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	i2f
+	pusha	0
+	pushi	2
+	addi
+	loadb
+	b2i
+	call	f
 	outi
-	' *  Write %s'
-'
+	' * Write
 	pushb	10
 	outb
-VALUE-PLACEHOLDER
-	popi
-VALUE-PLACEHOLDER
 
-#line	59	' * int i = 0
+#line	56
+	pushf	1.3
+	pushi	2
+	call	f
+	popi
+
+#line	58
+	call	initialize
+
+#line	59
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line	60	' * while (int i < 8)
-	jmp	label4
+#line	60
+label4:
 	push	bp
 	pushi	-2
 	addi
@@ -290,12 +365,13 @@ VALUE-PLACEHOLDER
 	pushi	8
 	lti
 	jz	label5
+	' * Body of the while statement
 
-#line	62	' * syntax.statements.Write@64616ca2
-	' *  Write %s'('
+#line	62
+	' * Write
 	pushb	40
 	outb
-	' *  Write %sint i + 1
+	' * Write
 	push	bp
 	pushi	-2
 	addi
@@ -303,30 +379,65 @@ VALUE-PLACEHOLDER
 	pushi	1
 	addi
 	outi
-	' *  Write %s')'
+	' * Write
 	pushb	41
 	outb
-	' *  Write %sArrayAccess [62 : 28] : array=[ ArrayAccess [62 : 28] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ]
-VALUE-PLACEHOLDER
+	' * Write
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
+	addi
+	loadi
 	outi
-	' *  Write %s'+'
+	' * Write
 	pushb	43
 	outb
-	' *  Write %sArrayAccess [63 : 16] : array=[ ArrayAccess [63 : 16] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ]
-VALUE-PLACEHOLDER
+	' * Write
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	loadi
 	outi
-	' *  Write %s'='
+	' * Write
 	pushb	61
 	outb
-	' *  Write %sArrayAccess [64 : 11] : array=[ ArrayAccess [64 : 11] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 2 ]
-VALUE-PLACEHOLDER
+	' * Write
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
+	addi
+	loadi
 	outi
-	' *  Write %s'
-'
+	' * Write
 	pushb	10
 	outb
 
-#line	65	' * int i = int i + 1
+#line	65
 	push	bp
 	pushi	-2
 	addi
@@ -340,31 +451,53 @@ VALUE-PLACEHOLDER
 	jmp	label4
 label5:
 
-#line	68	' * ArrayAccess [68 : 3] : array=[ ArrayAccess [68 : 3] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ 1 ].employees ] index=[ 1 ].age = 56
-ADDRESS-PLACEHOLDER
-	pusha	0
+#line	68
+	pusha	3
+	pushi	1
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	pushi	0
 	addi
 	pushi	56
 	storei
 
-#line	70	' * syntax.statements.Write@13fee20c
-	' *  Write %sArrayAccess [70 : 9] : array=[ ArrayAccess [70 : 9] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ 1 ].employees ] index=[ 1 ].age
-VALUE-PLACEHOLDER
+#line	70
+	' * Write
+	pusha	3
+	pushi	1
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	pushi	1
+	pushi	2
+	muli
+	addi
+	pushi	0
+	addi
+	loadi
 	outi
-	' *  Write %s'
-'
+	' * Write
 	pushb	10
 	outb
 
-#line	71	' * int i = 0
+#line	71
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line	72	' * while (int i < 2)
-	jmp	label6
+#line	72
+label6:
 	push	bp
 	pushi	-2
 	addi
@@ -372,16 +505,17 @@ VALUE-PLACEHOLDER
 	pushi	2
 	lti
 	jz	label7
+	' * Body of the while statement
 
-#line	73	' * int j = 0
+#line	73
 	push	bp
 	pushi	-4
 	addi
 	pushi	0
 	storei
 
-#line	74	' * while (int j < 2)
-	jmp	label8
+#line	74
+label8:
 	push	bp
 	pushi	-4
 	addi
@@ -389,10 +523,27 @@ VALUE-PLACEHOLDER
 	pushi	2
 	lti
 	jz	label9
+	' * Body of the while statement
 
-#line	75	' * ArrayAccess [75 : 7] : array=[ ArrayAccess [75 : 7] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ int i ].employees ] index=[ int j ].age = int i + int j
-ADDRESS-PLACEHOLDER
-	pusha	0
+#line	75
+	pusha	3
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	muli
+	addi
+	pushi	0
 	addi
 	push	bp
 	pushi	-2
@@ -405,7 +556,7 @@ ADDRESS-PLACEHOLDER
 	addi
 	storei
 
-#line	76	' * int j = int j + 1
+#line	76
 	push	bp
 	pushi	-4
 	addi
@@ -419,7 +570,7 @@ ADDRESS-PLACEHOLDER
 	jmp	label8
 label9:
 
-#line	78	' * int i = int i + 1
+#line	78
 	push	bp
 	pushi	-2
 	addi
@@ -433,15 +584,15 @@ label9:
 	jmp	label6
 label7:
 
-#line	82	' * int i = 0
+#line	82
 	push	bp
 	pushi	-2
 	addi
 	pushi	0
 	storei
 
-#line	83	' * while (int i < 2)
-	jmp	label10
+#line	83
+label10:
 	push	bp
 	pushi	-2
 	addi
@@ -449,16 +600,17 @@ label7:
 	pushi	2
 	lti
 	jz	label11
+	' * Body of the while statement
 
-#line	84	' * int j = 0
+#line	84
 	push	bp
 	pushi	-4
 	addi
 	pushi	0
 	storei
 
-#line	85	' * while (int j < 2)
-	jmp	label12
+#line	85
+label12:
 	push	bp
 	pushi	-4
 	addi
@@ -466,16 +618,36 @@ label7:
 	pushi	2
 	lti
 	jz	label13
+	' * Body of the while statement
 
-#line	87	' * syntax.statements.Write@4e04a765
-	' *  Write %sArrayAccess [87 : 13] : array=[ ArrayAccess [87 : 13] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ int i ].employees ] index=[ int j ].age
-VALUE-PLACEHOLDER
+#line	87
+	' * Write
+	pusha	3
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	4
+	muli
+	addi
+	pushi	0
+	addi
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	muli
+	addi
+	pushi	0
+	addi
+	loadi
 	outi
-	' *  Write %s' '
+	' * Write
 	pushb	32
 	outb
 
-#line	88	' * int j = int j + 1
+#line	88
 	push	bp
 	pushi	-4
 	addi
@@ -489,7 +661,7 @@ VALUE-PLACEHOLDER
 	jmp	label12
 label13:
 
-#line	90	' * int i = int i + 1
+#line	90
 	push	bp
 	pushi	-2
 	addi

@@ -3,6 +3,7 @@ package code;
 import syntax.Definition;
 import syntax.Statement;
 import syntax.Type;
+import syntax.expressions.FunctionInvocation;
 import syntax.expressions.binary.Arithmetic;
 import syntax.expressions.binary.Comparison;
 import syntax.expressions.binary.LogicalOperation;
@@ -10,6 +11,8 @@ import syntax.statements.FunctionDefinition;
 
 public class CodeGenerator {
 
+	private final static boolean DEBUG = false;
+	
 	private static CodeGenerator instance;
 	public static CodeGenerator getInstance() {
 		if (instance == null)
@@ -49,11 +52,13 @@ public class CodeGenerator {
 	
 	
 	public String line(Statement st) {
-		return String.format("\n#line\t%s\t' * %s", st.getLine(), st.toString());
+		if (DEBUG) return String.format("\n#line\t%s\t' * %s", st.getLine(), st.toString());
+		else return String.format("\n#line\t%s", st.getLine());
 	}
 	
 	public String line(Definition def) {
-		return String.format("\n#line\t%s\t' * %s", def.getLine(), def.toString());
+		if (DEBUG) return String.format("\n#line\t%s\t' * %s", def.getLine(), def.toString());
+		else return String.format("\n#line\t%s", def.getLine());
 	}
 	
 	
@@ -310,6 +315,10 @@ public class CodeGenerator {
 	}
 
 	
+	public String call(FunctionInvocation functionInvocation) {
+		return String.format("\tcall\t%s", functionInvocation.getFunction().getDefinition().getName());
+	}
+	
 	
 	
 	
@@ -331,6 +340,9 @@ public class CodeGenerator {
 	public String i2b() {
 		return "\ti2b\n";
 	}
+
+
+	
 	
 	
 }

@@ -68,7 +68,7 @@ public class StructType extends AbstractType {
 			str.append(variables.get(0).toString());
 		
 		for (int i = 1; i < variables.size(); i ++)
-			str.append(", " + variables.get(0).toString());
+			str.append(", " + variables.get(i).toString());
 		
 		return String.format("struct{ %s }", str.toString());
 	}

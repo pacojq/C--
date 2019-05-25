@@ -56,7 +56,10 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(ArrayAccess arrayAccess, Void params) {
 		
-		// TODO ArrayAccess
+		arrayAccess.accept(addressVisitor, null);
+		arrayAccess.cgSetValue(arrayAccess.cgGetAddress());
+		
+		arrayAccess.cgAppendValue(cg.load(arrayAccess.getType()));
 		
 		return null;
 	}
@@ -64,7 +67,11 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(AttributeAccess attributeAccess, Void params) {
 		
-		// TODO AttributeAccess
+		attributeAccess.accept(addressVisitor, null);
+		attributeAccess.cgSetValue(attributeAccess.cgGetAddress());
+		
+		attributeAccess.cgAppendValue(cg.load(attributeAccess.getType()));
+		
 		return null;
 	}
 
@@ -106,7 +113,14 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(FunctionInvocation functionInvocation, Void params) {
 		
-		// TODO
+		functionInvocation.cgSetValue(cg.line(functionInvocation));
+		
+		for (Expression arg : functionInvocation.getArguments()) {
+			arg.accept(this, null);
+			functionInvocation.cgAppendValue(arg.cgGetValue());
+		}
+		
+		functionInvocation.cgAppendValue(cg.call(functionInvocation));		
 		return null;
 	}
 
@@ -115,9 +129,14 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(NotSign notSign, Void params) {
 		
-		// TODO
+		Expression operand = notSign.getOperand();
+		operand.accept(this, null);
+		notSign.cgSetValue(operand.cgGetValue());
+		notSign.cgAppendValue(cg.not());
+		
 		return null;
 	}
+	
 
 	@Override
 	public Void visit(UnaryMinus unaryMinus, Void params) {

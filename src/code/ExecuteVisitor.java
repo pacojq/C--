@@ -193,6 +193,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 	public Void visit(Return ret, Void params) {
 		
 		ret.cgSetExecute(cg.line(ret));
+		ret.cgAppendExecute(cg.comment("Return"));
 		
 		// Just push the value
 		ret.getValue().accept(valueVisitor, null);
@@ -209,7 +210,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		int labelNumber = CodeGenerator.getInstance().getLabels(2);
 		
 		// Set first label
-		whileLoop.cgAppendExecute(cg.jump(labelNumber));
+		whileLoop.cgAppendExecute(cg.label(labelNumber));
 		
 		
 		// Check condition
@@ -219,6 +220,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		
 		// Jump to the end if false (0)
 		whileLoop.cgAppendExecute(cg.jumpZero(labelNumber+1));
+		whileLoop.cgAppendExecute(cg.comment("Body of the while statement"));
 		
 		
 		// Execute all the loop...
@@ -242,7 +244,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		write.cgSetExecute(cg.line(write));
 		
 		for (Expression expr : write.getExpressions()) {
-			write.cgAppendExecute(cg.comment(" Write %s" + expr.toString()));
+			write.cgAppendExecute(cg.comment("Write"));//+ expr.toString())); comment this because write '\n' may cause problems
 			expr.accept(valueVisitor, null);
 			write.cgAppendExecute(expr.cgGetValue());
 			write.cgAppendExecute(cg.out(expr.getType()));
