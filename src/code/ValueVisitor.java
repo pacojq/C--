@@ -8,10 +8,10 @@ import syntax.expressions.binary.*;
 
 public class ValueVisitor extends CGVisitor<Void, Void> {
 
-	
+
+	private CodeGenerator cg = CodeGenerator.getInstance();
 	public AddressVisitor addressVisitor;
 	
-	private CodeGenerator cg = CodeGenerator.getInstance();
 	
 	
 	// WE ONLY DEAL WITH EXPRESSIONS //
@@ -32,7 +32,10 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(Comparison comparison, Void params) {
 		
-		// TODO comparison
+		comparison.getLeft().accept(this, params);
+		comparison.getRight().accept(this,  params);		
+		
+		comparison.cgSetValue(cg.comparison(comparison));
 		
 		return null;
 	}
@@ -41,7 +44,10 @@ public class ValueVisitor extends CGVisitor<Void, Void> {
 	@Override
 	public Void visit(LogicalOperation logicalOperation, Void params) {
 		
-		// TODO LogicalOperation
+		logicalOperation.getLeft().accept(this, params);
+		logicalOperation.getRight().accept(this,  params);		
+		
+		logicalOperation.cgSetValue(cg.logicalOperation(logicalOperation));
 		
 		return null;
 	}

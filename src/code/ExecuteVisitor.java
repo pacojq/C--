@@ -24,6 +24,7 @@ public class ExecuteVisitor extends CGVisitor<Void, Void> {
 		valueVisitor = new ValueVisitor();
 
 		valueVisitor.addressVisitor = addressVisitor;
+		addressVisitor.valueVisitor = valueVisitor;
 	}
 	
 	

@@ -24,6 +24,8 @@ public abstract class AbstractStatement extends AbstractASTNode implements State
 
 	@Override
 	public void cgAppendExecute(String execute) {
+		if (execute.isEmpty())
+			return;
 		if (!execute.endsWith("\n"))
 			execute += "\n";
 		cgExecute += execute;

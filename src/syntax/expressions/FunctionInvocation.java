@@ -65,6 +65,8 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 
 	@Override
 	public void cgAppendExecute(String execute) {
+		if (execute.isEmpty())
+			return;
 		if (!execute.endsWith("\n"))
 			execute += "\n";
 		cgExecute += execute;

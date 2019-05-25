@@ -34,10 +34,24 @@ public class DoubleType extends AbstractType {
 		switch (other.getName()) {		
 			case CharType.NAME: return this;
 			case IntType.NAME: return this;
-			case DoubleType.NAME: return this;		
+			case DoubleType.NAME: return this;
 		}
 		return super.arithmetic(other);
 	}
+	
+	
+	@Override
+	public Type comparison(Type other) {
+		
+		switch (other.getName()) {
+			case CharType.NAME: return this;
+			case IntType.NAME: return this;
+			case DoubleType.NAME: return this;
+		}
+		return super.comparison(other);
+	}
+	
+	
 	
 	@Override
 	public Type cast(Type other) {

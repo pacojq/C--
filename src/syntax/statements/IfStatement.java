@@ -20,6 +20,7 @@ public class IfStatement extends AbstractStatement {
 		super(line, column);
 		this.condition = condition;
 		this.ifPart = new ArrayList<Statement>(ifPart);
+		this.elsePart = new ArrayList<Statement>();
 	}
 	
 	public Expression getCondition() {

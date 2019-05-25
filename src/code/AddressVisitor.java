@@ -1,16 +1,21 @@
 package code;
 
 import syntax.Definition;
+import syntax.Expression;
+import syntax.Type;
 import syntax.expressions.ArrayAccess;
 import syntax.expressions.AttributeAccess;
 import syntax.expressions.Variable;
 import syntax.statements.Read;
+import syntax.types.ArrayType;
+import syntax.types.IntType;
 import syntax.types.StructType;
 
 public class AddressVisitor extends CGVisitor<Void, Void> {
 
 	
 	private CodeGenerator cg = CodeGenerator.getInstance();
+	public ValueVisitor valueVisitor;
 	
 	
 	// - - - - - - - - WE ONLY DEAL WITH L-VALUE EXPRESSIONS - - - - - - - - //
@@ -23,7 +28,7 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 		
 		// Global
 		if (def.getScope() == 0) {
-			variable.cgSetAddress(cg.push("i", def.getOffset()));
+			variable.cgSetAddress(cg.push("a", def.getOffset()));
 		}
 		// Local
 		else {
@@ -37,9 +42,30 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	
 	@Override
 	public Void visit(ArrayAccess arrayAccess, Void params) {
-		arrayAccess.cgSetAddress(arrayAccess.getArray().cgGetAddress());
-		arrayAccess.cgAppendAddress(arrayAccess.getIndex().cgGetValue());
+				
+		Expression array = arrayAccess.getArray();
+		Expression index = arrayAccess.getIndex();
+		Type typeOf = ((ArrayType) array.getType()).getTypeOf();
+		
+		// First take the address of the whole array
+		array.accept(this, null);
+		arrayAccess.cgSetAddress(array.cgGetAddress());
+		
+		
+		// Now calculate the offset
+		// offset = index * numberOfBytes
+		index.accept(valueVisitor, null);
+		arrayAccess.cgAppendAddress(index.cgGetValue());
+		
+		arrayAccess.cgAppendAddress( index.getType().cgConvert(new IntType(0, 0)) );
+		arrayAccess.cgAppendAddress( cg.push("i", typeOf.numberOfBytes()) );
+		
+		arrayAccess.cgAppendAddress(cg.mul("i"));
+		
+		
+		// Now, add it all up
 		arrayAccess.cgAppendAddress(cg.add("i"));
+		
 		return null;
 	}
 	
@@ -61,6 +87,9 @@ public class AddressVisitor extends CGVisitor<Void, Void> {
 	
 	@Override
 	public Void visit(Read read, Void params) {
+		
+		// TODO
+		
 		/*for (Expression expr : read.getExpressions()) {
 			expr.accept(this, params);
 		

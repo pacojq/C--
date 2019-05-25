@@ -36,7 +36,9 @@ public class IntType extends AbstractType {
 	public Type comparison(Type other) {
 		
 		switch (other.getName()) {
+			case CharType.NAME: return this;
 			case IntType.NAME: return this;
+			case DoubleType.NAME: return other;
 		}
 		return super.comparison(other);
 	}

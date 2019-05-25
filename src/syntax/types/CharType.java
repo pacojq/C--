@@ -39,9 +39,21 @@ public class CharType extends AbstractType {
 	}
 	
 	@Override
+	public Type comparison(Type other) {
+		
+		switch (other.getName()) {
+			case CharType.NAME: return new IntType(getLine(), getColumn());
+			case IntType.NAME: return other;
+			case DoubleType.NAME: return other;
+		}
+		return super.comparison(other);
+	}
+	
+	
+	@Override
 	public Type cast(Type other) {
 		
-		switch (other.getName()) {		
+		switch (other.getName()) {	
 			case CharType.NAME: return this;
 			case IntType.NAME: return other;
 			case DoubleType.NAME: return other;		

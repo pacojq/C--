@@ -59,6 +59,8 @@ public abstract class AbstractExpression extends AbstractASTNode implements Expr
 	public void cgAppendAddress(String address) {
 		if (!getLValue())
 			throw new IllegalStateException("You cannot set address to an expression which is not L-Value.");
+		if (address.isEmpty())
+			return;
 		if (!address.endsWith("\n"))
 			address += "\n";
 		cgAddress += address;
@@ -80,6 +82,8 @@ public abstract class AbstractExpression extends AbstractASTNode implements Expr
 
 	@Override
 	public void cgAppendValue(String value) {
+		if (value.isEmpty())
+			return;
 		if (!value.endsWith("\n"))
 			value += "\n";
 		cgValue += value;

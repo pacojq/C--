@@ -50,8 +50,14 @@ halt
 	storeb
 
 #line	22	' * if (int e < 256)
-VALUE-PLACEHOLDER
-	jz label2
+	push	bp
+	pushi	4
+	addi
+	loadi
+	pushi	256
+	lti
+	jz	label0
+	' * Body of the if branch
 
 #line	23	' * char c = (char) int e
 	push	bp
@@ -74,8 +80,9 @@ VALUE-PLACEHOLDER
 	loadb
 	b2i
 	storei
-	jmp label2
+	jmp	label1
 label0:
+	' * Body of the else branch
 
 #line	27	' * int result = (int) double real
 	push	bp
@@ -89,7 +96,7 @@ label0:
 	storei
 label1:
 
-#line	28	' * syntax.statements.Return@3b81a1bc
+#line	28	' * syntax.statements.Return@5f2050f6
 	push	bp
 	pushi	-7
 	addi
@@ -105,22 +112,40 @@ label1:
 	enter	2
 
 #line	33	' * ArrayAccess [33 : 3] : array=[ ArrayAccess [33 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 0 ] = 0
-ADDRESS-PLACEHOLDER
-VALUE-PLACEHOLDER
+	pusha	11
+	pushi	0
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
 	addi
 	pushi	0
 	storei
 
 #line	34	' * ArrayAccess [34 : 3] : array=[ ArrayAccess [34 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 1 ] = 1
-ADDRESS-PLACEHOLDER
-VALUE-PLACEHOLDER
+	pusha	11
+	pushi	0
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
 	addi
 	pushi	1
 	storei
 
 #line	35	' * ArrayAccess [35 : 3] : array=[ ArrayAccess [35 : 3] : array=[ [8, [3, int]] fibonacci ] index=[ 0 ] ] index=[ 2 ] = 1
-ADDRESS-PLACEHOLDER
-VALUE-PLACEHOLDER
+	pusha	11
+	pushi	0
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
 	addi
 	pushi	1
 	storei
@@ -133,27 +158,59 @@ VALUE-PLACEHOLDER
 	storei
 
 #line	37	' * while (int i < 8)
-	jmp label4
-VALUE-PLACEHOLDER
-	jz label4
+	jmp	label2
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	8
+	lti
+	jz	label3
 
 #line	38	' * ArrayAccess [38 : 5] : array=[ ArrayAccess [38 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ] = ArrayAccess [38 : 23] : array=[ ArrayAccess [38 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i - 1 ] ] index=[ 1 ]
-ADDRESS-PLACEHOLDER
-VALUE-PLACEHOLDER
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	0
+	pushi	2
+	muli
 	addi
 VALUE-PLACEHOLDER
 	storei
 
 #line	39	' * ArrayAccess [39 : 5] : array=[ ArrayAccess [39 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ] = ArrayAccess [39 : 23] : array=[ ArrayAccess [39 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i - 1 ] ] index=[ 2 ]
-ADDRESS-PLACEHOLDER
-VALUE-PLACEHOLDER
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	1
+	pushi	2
+	muli
 	addi
 VALUE-PLACEHOLDER
 	storei
 
 #line	40	' * ArrayAccess [40 : 5] : array=[ ArrayAccess [40 : 5] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 2 ] = ArrayAccess [40 : 23] : array=[ ArrayAccess [40 : 23] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 0 ] + ArrayAccess [40 : 41] : array=[ ArrayAccess [40 : 41] : array=[ [8, [3, int]] fibonacci ] index=[ int i ] ] index=[ 1 ]
-ADDRESS-PLACEHOLDER
-VALUE-PLACEHOLDER
+	pusha	11
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	6
+	muli
+	addi
+	pushi	2
+	pushi	2
+	muli
 	addi
 VALUE-PLACEHOLDERVALUE-PLACEHOLDER	addi
 	storei
@@ -169,7 +226,7 @@ VALUE-PLACEHOLDERVALUE-PLACEHOLDER	addi
 	pushi	1
 	addi
 	storei
-	jmp label4
+	jmp	label2
 label3:
 	ret	0, 2, 0
 
@@ -205,7 +262,7 @@ ADDRESS-PLACEHOLDER
 	b2i
 	storei
 
-#line	55	' * syntax.statements.Write@64616ca2
+#line	55	' * syntax.statements.Write@3b81a1bc
 	' *  Write %sf((double) int i, (int) struct{ int integer (offset 0), int integer (offset 0) } pair.character)
 VALUE-PLACEHOLDER
 	outi
@@ -225,11 +282,16 @@ VALUE-PLACEHOLDER
 	storei
 
 #line	60	' * while (int i < 8)
-	jmp label6
-VALUE-PLACEHOLDER
-	jz label6
+	jmp	label4
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	8
+	lti
+	jz	label5
 
-#line	62	' * syntax.statements.Write@13fee20c
+#line	62	' * syntax.statements.Write@64616ca2
 	' *  Write %s'('
 	pushb	40
 	outb
@@ -275,7 +337,7 @@ VALUE-PLACEHOLDER
 	pushi	1
 	addi
 	storei
-	jmp label6
+	jmp	label4
 label5:
 
 #line	68	' * ArrayAccess [68 : 3] : array=[ ArrayAccess [68 : 3] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ 1 ].employees ] index=[ 1 ].age = 56
@@ -285,7 +347,7 @@ ADDRESS-PLACEHOLDER
 	pushi	56
 	storei
 
-#line	70	' * syntax.statements.Write@4e04a765
+#line	70	' * syntax.statements.Write@13fee20c
 	' *  Write %sArrayAccess [70 : 9] : array=[ ArrayAccess [70 : 9] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ 1 ].employees ] index=[ 1 ].age
 VALUE-PLACEHOLDER
 	outi
@@ -302,9 +364,14 @@ VALUE-PLACEHOLDER
 	storei
 
 #line	72	' * while (int i < 2)
-	jmp label8
-VALUE-PLACEHOLDER
-	jz label8
+	jmp	label6
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label7
 
 #line	73	' * int j = 0
 	push	bp
@@ -314,9 +381,14 @@ VALUE-PLACEHOLDER
 	storei
 
 #line	74	' * while (int j < 2)
-	jmp label10
-VALUE-PLACEHOLDER
-	jz label10
+	jmp	label8
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label9
 
 #line	75	' * ArrayAccess [75 : 7] : array=[ ArrayAccess [75 : 7] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ int i ].employees ] index=[ int j ].age = int i + int j
 ADDRESS-PLACEHOLDER
@@ -344,7 +416,7 @@ ADDRESS-PLACEHOLDER
 	pushi	1
 	addi
 	storei
-	jmp label10
+	jmp	label8
 label9:
 
 #line	78	' * int i = int i + 1
@@ -358,7 +430,7 @@ label9:
 	pushi	1
 	addi
 	storei
-	jmp label10
+	jmp	label6
 label7:
 
 #line	82	' * int i = 0
@@ -369,9 +441,14 @@ label7:
 	storei
 
 #line	83	' * while (int i < 2)
-	jmp label12
-VALUE-PLACEHOLDER
-	jz label12
+	jmp	label10
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label11
 
 #line	84	' * int j = 0
 	push	bp
@@ -381,11 +458,16 @@ VALUE-PLACEHOLDER
 	storei
 
 #line	85	' * while (int j < 2)
-	jmp label14
-VALUE-PLACEHOLDER
-	jz label14
+	jmp	label12
+	push	bp
+	pushi	-4
+	addi
+	loadi
+	pushi	2
+	lti
+	jz	label13
 
-#line	87	' * syntax.statements.Write@783e6358
+#line	87	' * syntax.statements.Write@4e04a765
 	' *  Write %sArrayAccess [87 : 13] : array=[ ArrayAccess [87 : 13] : array=[ [2, struct{ [2, struct{ int age (offset 0) }] employees (offset 0) }] acme ] index=[ int i ].employees ] index=[ int j ].age
 VALUE-PLACEHOLDER
 	outi
@@ -404,7 +486,7 @@ VALUE-PLACEHOLDER
 	pushi	1
 	addi
 	storei
-	jmp label14
+	jmp	label12
 label13:
 
 #line	90	' * int i = int i + 1
@@ -418,6 +500,6 @@ label13:
 	pushi	1
 	addi
 	storei
-	jmp label14
+	jmp	label10
 label11:
 	ret	0, 4, 0
