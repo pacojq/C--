@@ -17,7 +17,7 @@ public class CodeGeneration {
 	
 	public void run(String input) {
 		
-		String output = "uo257181-output.txt";
+		String output = "output.txt";
 		
 		this.program.accept(new OffsetVisitor(), null);
 		this.program.accept(new ExecuteVisitor(), null);
